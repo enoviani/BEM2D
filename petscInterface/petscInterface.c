@@ -7,17 +7,10 @@ void petscSolve(double* matrix,int N,double* rhs, double* x1){
 	PC             pc;           /* preconditioner context */
 	PetscErrorCode ierr;
 	PetscInt       n = N;
-//	PetscInt       size=1;
-
-	int *argc;
-	char ***args;
-	char *help;
 
 	int i;
 
-
-
-	PetscInitialize(argc,args,(char*)0,help);
+	PetscInitialize(NULL,NULL,(char*)0,NULL);
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	   Compute the matrix and right-hand-side vector that define
