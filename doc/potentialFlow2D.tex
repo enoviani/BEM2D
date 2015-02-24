@@ -1,0 +1,116 @@
+\documentclass[a4paper,12pt]{article}
+%\documentclass[a4paper,10pt]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{epic}
+\usepackage{eepic}
+\usepackage{bm}
+\usepackage{array}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{fancyhdr}
+
+\usepackage{vmargin}            % red�finir les marges
+\setmarginsrb{2cm}{0.5cm}{2cm}{1cm}{0cm}{1cm}{0cm}{1cm}
+
+
+\title{Potential Flow Around a Regular Body in 2D}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\section{Settling the Problem}
+
+Suppose the fluids flows by given vector velocity field $u$. The velocity field can be written as the gradient 
+$\nabla \phi$ of a velocity potential $\phi$. 
+\begin{equation}\label{Pr0}
+ u=\nabla \phi
+\end{equation}
+
+Let we assume that vector field $u$ to be irrotational. It means 
+$curl(u)=0$. We can also write
+$\nabla\times u=0$.
+
+We consider the flow to be incompressible, we have $\nabla\cdot u=0$. If we substitute ~\eqref{Pr0}, we have
+\begin{align*}
+&\nabla \cdot u=0 \\
+ &\nabla \cdot \nabla\phi=0 \\
+ &\Delta \phi=0
+\end{align*}
+From here we get:
+\begin{equation} \label{Pr1}
+ \Delta \phi=0
+\end{equation}
+
+Let consider fluid in an infinite domain. We have the velocity $u_0$ along $x$ in one direction.  This conditions can be written as
+\begin{equation} \label{Pr2}
+u=u_0\vec{e_x}
+\end{equation}
+From ~\eqref{Pr1} and ~\eqref{Pr2}, we have problem:
+
+
+\begin{equation} \label{problem1}
+\begin{split}
+\Delta \phi &=0\\
+u=\nabla \phi &\to u_0 \vec{e_x} \quad \text{as } x\to\pm\infty
+\end{split}
+\end{equation}
+This problem has obvious solution i.e $\phi= u_0 x$.
+
+Let we add a regular obstacle $\Omega_0$. We consider $\partial\Omega_0$ to be $C^1$. It means the obstacle doesn't have angle nor discontinuity. 
+On the border of the obstacle, the velocity is tangential.
+\begin{equation}\label{eq1}
+u\cdot n=0
+\end{equation}
+with $n$ is the (exterior) normal vector of $\Omega_0$.
+We substitute $u=\nabla\Phi$ to ~\eqref{eq1}, we get 
+\begin{equation}\label{Pr3}
+\nabla\phi\cdot n=0
+\end{equation}
+Equation ~\eqref{Pr3} is called Homogeneous Neumann Boundary Condition.  
+From equation ~\eqref{Pr0},~\eqref{Pr1}, ~\eqref{Pr2} and ~\eqref{Pr3}, we obtain the problem:
+\begin{equation} \label{problem2}
+\begin{split}
+\Delta \phi=0 \quad \text{On: } \mathbb{R}^2 \setminus \overline{\Omega_0}\\
+u=\nabla\phi\to u_0\vec{e_x}\quad \text{as } x \to \pm\infty\\
+\nabla\phi \cdot n=0 \quad \partial \Omega_0=\Gamma_0
+\end{split}
+\end{equation}
+We have to find the harmonic function that satisfies all the boundary conditions.
+
+Without the obstacle, problem ~\eqref{problem1} has solution $u_0x$. We can use it to find $\phi$. Let we do the changing variable in order to get the solution of problem ~\eqref{problem2}.
+Let $\psi=\phi-u_0 x$ and $\phi$ is the actual solution. 
+
+\begin{align*}
+\psi&=\phi-u_0 x\\
+ \Delta \psi &= \Delta \phi-\Delta (u_0x)\\
+\Delta \psi &= \Delta \phi\\
+\nabla \psi &= \nabla\phi-u_0\vec{e_x}
+\end{align*}
+when $x\to\pm\infty$ value of $\nabla \psi\to 0$.
+From here, we get 
+\begin{equation}
+ \nabla\psi\to0 \quad \text{as } x\to\pm\infty
+\end{equation}
+From the last condition in ~\eqref{problem2} we get
+\begin{align*}
+ \nabla\psi\cdot n &= \nabla(\phi-u_0 x)\cdot n \text{on } \Gamma_0\\
+&=\nabla\phi \cdot n - \nabla(u_0 x)\cdot n\\
+&=0-u_0\nabla x\cdot n\\
+&=-u_0 \vec{e_x} \cdot n\\
+&=-u_0 n_x
+\end{align*}
+
+The problem after changing variable become
+\begin{equation}  \label{problem3}
+\begin{split}
+\Delta \psi&=0 \quad \text{in } \mathbb{R}^2 \setminus \overline{\Omega_0}\\
+\nabla\psi &\to 0 \quad \text{as } x\to\pm\infty\\
+\nabla\psi \cdot n &= -u_0 n_x \quad \text{on } \Gamma_0 
+\end{split}
+\end{equation}
+
+
+
+\end{document}
