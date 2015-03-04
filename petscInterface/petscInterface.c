@@ -1,5 +1,79 @@
 #include"petscInterface.h"
 
+/*
+void petscMulti(double* matrix,int M, int N, double* vectorx, double* vectory){
+
+        Vec      x, y;      // vector, result of multiplication
+        Mat      A;    		// matrix
+	PetscInt       n = N; //column numbers of matrix 
+	PetscInt       m = M; // Row numbers of matrix
+	int i;
+	//PetscErrorCode ierr;
+
+	printf("-----------------sampai sini-----------------------\n");
+
+	PetscInitialize(NULL,NULL,(char*)0,NULL);
+	printf("-----------------sampai sini-----------------------\n");
+	// create vector x, size (N,1)//
+	VecCreate(PETSC_COMM_WORLD,&x);
+	VecSetSizes(x,PETSC_DECIDE,n);
+	VecSetFromOptions(x);
+
+	PetscInt* linesv=malloc(N*sizeof(PetscInt));
+
+	for(i=0;i<N;i++){
+		linesv[i]=i;
+	}
+	VecSetValues(x,n,linesv,vectorx, INSERT_VALUES);//	Set vector x from the input function  
+	
+	printf("-----------------sampai sini-----------------------");
+	// create vector y, size (M,1) as the result of matrix vector multiplication//
+	VecCreate(PETSC_COMM_WORLD,&y);
+	VecSetSizes(y,PETSC_DECIDE,m);
+	VecSetFromOptions(y);
+
+	//create matrix with size (M,N)//
+
+	MatCreate(PETSC_COMM_WORLD,&A);
+	MatSetSizes(A,PETSC_DECIDE,PETSC_DECIDE,m,n);
+	MatSetFromOptions(A);
+	MatSetUp(A);
+
+	//
+	   Assemble matrix
+	  //
+
+	int* idx=malloc(N*sizeof(int));
+
+	int* idy=malloc(M*sizeof(int));
+	
+	//Build the array to configure lines and coloums that the value of matrix will be added
+	for(i=0;i<N;i++){
+		idx[i]=i;
+	}
+
+	for(i=0;i<M;i++){
+		idy[i]=i;
+	}
+
+	MatSetValues(A,M,idy,N,idx,matrix,INSERT_VALUES);
+	MatAssemblyBegin(A,MAT_FINAL_ASSEMBLY);
+	MatAssemblyEnd(A,MAT_FINAL_ASSEMBLY);
+	
+
+	MatMult(A,x,y);
+
+	PetscScalar *temp;
+
+        VecGetArray(y,&temp);
+
+        for(i=0;i<N;i++)
+                vectory[i]=temp[i];
+
+
+	PetscFinalize();
+}
+*/
 void petscSolve(double* matrix,int N,double* rhs, double* x1){
 	Vec		 x, b;      /* approx solution, RHS, exact solution */
 	Mat            A;            /* linear system matrix */
