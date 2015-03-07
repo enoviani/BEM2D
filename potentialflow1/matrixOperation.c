@@ -15,7 +15,7 @@ void addMatrix(double** matrix1, int row1, int col1, double** matrix2,int row2, 
 }
 
 void multipleMatrix(double** matrix1, int row1, int col1, double* vector,int row2, double* matrixMultiple){
-	int i,j,k;
+	int i,k;
 	if (col1==row2){
 		for (i=0;i<row1;i++){
 			double sum=0.0;

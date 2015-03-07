@@ -44,7 +44,7 @@ int main(){
 		Y[i]= 0.5*(sin(sudut[i]));
 	}
 
-	printf("Coordinates of Obstacle \n");
+//	printf("Coordinates of Obstacle \n");
 //	displayCoordinates(X,Y,N);
 	//displayArray(Y,N);
 
@@ -60,7 +60,7 @@ int main(){
 		yn[i]= (Y[ip]+Y[i])/2;
 	}
 
-	printf("coordinates of Xi\n");
+//	printf("coordinates of Xi\n");
 //	displayCoordinates(xn,yn,N);
 	// displayArray(yn,N);
 
@@ -81,7 +81,7 @@ int main(){
 		ny[i]=ny[i]/norm[i];
 	}
 
-	printf("normal vector \n");
+//	printf("normal vector \n");
 //	displayCoordinates(nx,ny,N);
 //	printf("xi vector and normal vector \n");
 //	displayNormal(xn,yn,nx,ny,N);
@@ -152,10 +152,10 @@ int main(){
 	double* Pn;
 	Pn=malloc(N*sizeof(double));
 	multipleMatrix(P, N, N, nx, N, Pn);	
-	printf("we will solve (0.5*I+M)*Psi= P*(nx')\n");
-	printf("RHS :\n");
+//	printf("we will solve (0.5*I+M)*Psi= P*(nx')\n");
+//	printf("RHS :\n");
 //	displayArray(Pn,N);
-	printf("The result of (0.5*I+M): \n");
+//	printf("The result of (0.5*I+M): \n");
 //	displayMatrix(IdPlusM,N); 
 
 	//We will solveIdPlusM*Psi=Pn
@@ -176,7 +176,7 @@ int main(){
 	double* Psi;
 	Psi= malloc(N*sizeof(double));
 	petscSolve(A, N, Pn, Psi);//Solving the Linear Equation System
-	printf("Solution Psi:\n");
+//	printf("Solution Psi:\n");
 //	displayArray(Psi,N);
 
 	//**************************************************
@@ -207,10 +207,10 @@ int main(){
 			YYV[k+j]=(mesh1)+dhy*j;
 		}
 	}
-	printf("vector XXV :\n");
+//	printf("vector XXV :\n");
 //	displayArray(XXV,(Hx*Hy));
 
-	printf("vector YYV :\n");
+//	printf("vector YYV :\n");
 //	displayArray(YYV,(Hx*Hy));
 
 	double** MMx;
@@ -229,7 +229,6 @@ int main(){
 	PP=createEmptyMatrix((Hx*Hy),N);
 
 	double eps=1E-6L;
-	printf("nilai eps: %f\n",eps);
 	for(i=0;i<(Hx*Hy);i++){
 		for (j=0;j<N;j++){
 			jp=mod(j+1,N);
@@ -278,7 +277,7 @@ int main(){
 		VVy[i]=PPyn[i]-MMyPsi[i];
 		PPhiv[i]=PPn[i]-MMPsi[i];
 	}
-	printf("X\tY\tPsi: in boundary.txt\n");
+	printf("*******************************\n X\tY\tPsi: in boundary.txt\n*******************************\n\n\n");
 //	displayBoundary3(X,Y,Psi,N);
 //write the result Psi at boundary in boundary.txt
 	FILE *fp1;
@@ -293,8 +292,8 @@ int main(){
         fclose(fp1);
 
 
-	printf("value in Domain:\n");
-	printf("written in domai.txt\n");
+	printf("*****************************\nvalue in Domain:");
+	printf("written in domain.txt\n*****************************\n");
 //	displayDomain5(XXV,YYV,VVx,VVy, PPhiv, (Hx*Hy));
 	//**** write the result to file domain.txt****
 	FILE *fp;
