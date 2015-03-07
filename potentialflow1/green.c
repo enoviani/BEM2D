@@ -28,7 +28,7 @@ void GreenBound(double xx, double yy, double xm, double ym,double xp,double yp, 
 
   double  H = cos(ThetaM)*sqrt(pow(xm-xx,2)+pow(ym-yy,2));
 
-  printf("%f \t %f \n",copysign(1.0,(sig*(nx*amy-ny*amx))),copysign(1.0,(sig*(nx*apy-ny*apx))));
+//  printf("%f \t %f \n",copysign(1.0,(sig*(nx*amy-ny*amx))),copysign(1.0,(sig*(nx*apy-ny*apx))));
 
   *pm=(1/(2*PI))*(ThetaP-ThetaM);
   *pp=(-sig*(H/(2*PI))*((tan(ThetaP)*(clog(H*(1.0/cos(ThetaP)))-1)+ThetaP)-(tan(ThetaM)*(clog(H*(1.0/cos(ThetaM)))-1)+ThetaM)));
