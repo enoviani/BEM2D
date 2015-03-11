@@ -11,7 +11,44 @@
 \usepackage{fancyhdr}
 
 \usepackage{vmargin}            % red�finir les marges
+\usepackage{amsthm}
+
 \setmarginsrb{2cm}{0.5cm}{2cm}{1cm}{0cm}{1cm}{0cm}{1cm}
+\newtheorem{remark}{Remark}
+
+\newcommand{\normL}[1]{%
+\ensuremath{||#1||_{L^2}}}
+\newcommand{\normLL}[1]{%
+\ensuremath{||#1||_{L^1}}}
+
+\newcommand{\abs}[1]{%
+\ensuremath{|#1|}}
+
+
+\newcommand{\norme}[2]{%
+\ensuremath{||#1||_{#2}}}
+
+\renewcommand{\d}[0]{%
+\ensuremath{\text{d}}}
+
+
+\newcommand{\systeme}[1]{%
+\ensuremath{\begin{numcases} \quad #1 \end{numcases}}}
+
+
+\newcommand{\integ}[3]{%
+\ensuremath{\displaystyle{\int^{#2}_{#1} #3}}}
+
+\newcommand{\somme}[3]{%
+\ensuremath{\displaystyle{\sum^{#2}_{#1} #3 }}}
+
+\newlength{\intwidth}
+\DeclareRobustCommand{\fpint}[2]
+   {\mathop{%
+      \text{%
+        \settowidth{\intwidth}{$\int$}%
+        \makebox[0pt][l]{\makebox[\intwidth]{$-$}}%
+        $\int_{#1}^{#2}$}}}
 
 
 \title{Potential Flow Around a Regular Body in 2D}
@@ -33,11 +70,11 @@ $curl(u)=0$. We can also write
 $\nabla\times u=0$.
 
 We consider the flow to be incompressible, we have $\nabla\cdot u=0$. If we substitute ~\eqref{Pr0}, we have
-\begin{align*}
+\begin{align}
 &\nabla \cdot u=0 \\
  &\nabla \cdot \nabla\phi=0 \\
  &\Delta \phi=0
-\end{align*}
+\end{align}
 From here we get:
 \begin{equation} \label{Pr1}
  \Delta \phi=0
@@ -50,12 +87,10 @@ u=u_0\vec{e_x}
 From ~\eqref{Pr1} and ~\eqref{Pr2}, we have problem:
 
 
-\begin{equation} \label{problem1}
-\begin{split}
+\begin{align} \label{problem1}
 \Delta \phi &=0\\
 u=\nabla \phi &\to u_0 \vec{e_x} \quad \text{as } x\to\pm\infty
-\end{split}
-\end{equation}
+\end{align}
 This problem has obvious solution i.e $\phi= u_0 x$.
 
 Let we add a regular obstacle $\Omega_0$. We consider $\partial\Omega_0$ to be $C^1$. It means the obstacle doesn't have angle nor discontinuity. 
@@ -64,53 +99,240 @@ On the border of the obstacle, the velocity is tangential.
 u\cdot n=0
 \end{equation}
 with $n$ is the (exterior) normal vector of $\Omega_0$.
-We substitute $u=\nabla\Phi$ to ~\eqref{eq1}, we get 
+We substitute $u=\nabla\phi$ to ~\eqref{eq1}, we get 
 \begin{equation}\label{Pr3}
 \nabla\phi\cdot n=0
 \end{equation}
 Equation ~\eqref{Pr3} is called Homogeneous Neumann Boundary Condition.  
 From equation ~\eqref{Pr0},~\eqref{Pr1}, ~\eqref{Pr2} and ~\eqref{Pr3}, we obtain the problem:
-\begin{equation} \label{problem2}
-\begin{split}
+\begin{align} \label{problem2}
 \Delta \phi=0 \quad \text{On: } \mathbb{R}^2 \setminus \overline{\Omega_0}\\
 u=\nabla\phi\to u_0\vec{e_x}\quad \text{as } x \to \pm\infty\\
 \nabla\phi \cdot n=0 \quad \partial \Omega_0=\Gamma_0
-\end{split}
-\end{equation}
+\end{align}
 We have to find the harmonic function that satisfies all the boundary conditions.
 
 Without the obstacle, problem ~\eqref{problem1} has solution $u_0x$. We can use it to find $\phi$. Let we do the changing variable in order to get the solution of problem ~\eqref{problem2}.
 Let $\psi=\phi-u_0 x$ and $\phi$ is the actual solution. 
 
-\begin{align*}
+\begin{align}
 \psi&=\phi-u_0 x\\
  \Delta \psi &= \Delta \phi-\Delta (u_0x)\\
 \Delta \psi &= \Delta \phi\\
 \nabla \psi &= \nabla\phi-u_0\vec{e_x}
-\end{align*}
+\end{align}
 when $x\to\pm\infty$ value of $\nabla \psi\to 0$.
 From here, we get 
 \begin{equation}
  \nabla\psi\to0 \quad \text{as } x\to\pm\infty
 \end{equation}
 From the last condition in ~\eqref{problem2} we get
-\begin{align*}
+\begin{align} 
  \nabla\psi\cdot n &= \nabla(\phi-u_0 x)\cdot n \text{on } \Gamma_0\\
 &=\nabla\phi \cdot n - \nabla(u_0 x)\cdot n\\
 &=0-u_0\nabla x\cdot n\\
 &=-u_0 \vec{e_x} \cdot n\\
 &=-u_0 n_x
-\end{align*}
+\end{align}
 
 The problem after changing variable become
-\begin{equation}  \label{problem3}
-\begin{split}
-\Delta \psi&=0 \quad \text{in } \mathbb{R}^2 \setminus \overline{\Omega_0}\\
-\nabla\psi &\to 0 \quad \text{as } x\to\pm\infty\\
-\nabla\psi \cdot n &= -u_0 n_x \quad \text{on } \Gamma_0 
-\end{split}
+\begin{align}  \label{problem3}
+\Delta \psi=0 \quad \text{in } \mathbb{R}^2 \setminus \overline{\Omega_0}\\
+\nabla\psi \to 0 \quad \text{as } x\to\pm\infty\\
+\nabla\psi \cdot n = -u_0 n_x \quad \text{on } \Gamma_0 
+\end{align}
+Once we solved the problem, if we want to retreive the velocity field, we simply compute:
+\begin{align}
+ u=\nabla\phi=\nabla(\psi+u_0 x)\\
+= \nabla\psi+u_0 \vec{e}_x
+\end{align}
+\begin{remark}
+ Uniqueness of solution problem ~\eqref{problem3} is not ensured. If $\psi$ is a solution of ~\eqref{problem3} then
+$\Tilde{\psi} = \psi+const$ is also a solution. This is not really a physical problem, because the only thing that
+matters to us is $\nabla\psi$. 
+\begin{equation}
+ \nabla \psi=\nabla\Tilde{\psi}
 \end{equation}
+\end{remark}
+From this remark, we have to select one of the solutions. We do it by adding a condition:
+\begin{equation}
+ \psi \to 0 \quad \text{as} x\to\pm\infty, y\to\pm\infty
+\end{equation}
+If $\psi$ supposed regular, then 
+\begin{align}
+ \psi\to0 \quad \text{as } x\to\pm\infty\\
+\Rightarrow \nabla\psi\to0 \quad \text{as } x\to\pm\infty
+\end{align}
+From here we get the actual problem is
+\begin{align}  \label{problem4}
+\Delta \psi=0 \quad \text{in } \mathbb{R}^2 \setminus \overline{\Omega_0}\\
+\psi \to 0 \quad \text{as } x\to\pm\infty ?\\
+\nabla\psi \cdot n = -u_0 n_x \quad \text{on } \Gamma_0 
+\end{align}
 
+\begin{remark}
+ We didn't proof the existence and uniqueness solution of the ~\eqref{problem4} nor their regularity. We assume that 
+the problem has all things we need.
+\end{remark}
+
+\section{The Boundary Integral Equation}
+
+Let $G_{x',y'} (x,y)$ be the Green function of Laplacian problem 2D.
+\begin{equation}
+ G_{x',y'}(x,y)=\dfrac{1}{2 \pi} \, \ln(\sqrt{(x-x')^2+(y-y')^2})
+\end{equation}
+$G$ has some properties:
+\begin{align}
+ \Delta G_{x',y'}=\delta_{x',y'}\\
+ G_{x',y'}\to0\quad \text{at}\quad (x,y)\to\infty
+\end{align}
+
+Let we see the problem:
+\begin{align}  \label{problem5}
+\Delta \psi=0 \quad \text{in } \mathbb{R}^2 \setminus \overline{\Omega_0}\\
+\psi \to 0 \quad \text{as } x\to\pm\infty\\
+\nabla\psi \cdot n = -u_0 n_x \quad \text{on } \Gamma_0 
+\end{align}
+Let us multiply the first equation in ~\eqref{problem5} with $G_{x',y'}$ and integrate over 
+$\mathbb{R}^2 \setminus \overline{\Omega_0}$. By integrating by parts, we get:
+\begin{align}
+\delta\psi=0\\
+\Leftrightarrow&\integ{\mathbb{R}^2 \setminus \overline{\Omega_0}}{}{ \Delta \psi(x,y) G_{x',y'}(x,y) \, dxdy}=0\\
+\Leftrightarrow& \integ{\Gamma_0}{}{(\nabla \psi \cdot n)G_{x',y'} \, ds}-\integ{\mathbb{R}^2 \setminus \overline{\Omega_0}}{}
+{\nabla\psi (x,y) \nabla G_{x',y'}(x,y) \, dxdy}=0\\
+\Leftrightarrow&\integ{\Gamma_0}{}{\Gamma_0}{}{(\nabla \psi \cdot n)G_{x',y'} \, ds}-
+\left\{\integ{\Gamma_0}{}{\psi \nabla G_{x',y'}(x,y)\cdot n \, ds1}-
+\integ{\mathbb{R}^2 \setminus \overline{\Omega_0}}{}{\Delta G_{x',y'}(x,y) \psi (x,y) \, dxdy}\right\}=0 \label{int1}
+\end{align}
+let we postpone the result of ~\eqref{int1} until these few remarks.
+
+\begin{remark}
+ If $(x',y')\in \mathbb{R}^2 \setminus\overline{\Omega_0}$, then we obtain the following results:
+\begin{enumerate}
+ \item By using boundary condition
+\begin{align}
+ \integ{\Gamma_0}{}{\psi \nabla G_{x',y'}(x,y)\cdot n \, ds1}&=\integ{\Gamma_0}{}{-u_0 n_x G_{x',y'} \, ds}\\
+&= -u_0 \integ{\Gamma_0}{}{n_x G_{x',y'} \, ds}
+\end{align}
+\item By definition of GreenFunction and dirac distribution
+\begin{align}
+ \integ{\mathbb{R}^2 \setminus \overline{\Omega_0}}{}{\Delta G_{x',y'}(x,y) \psi (x,y) \, dxdy}&=
+{\langle\delta_{x',y'}{,} \psi\rangle}_{D',D}\\
+&=\psi_{x',y'}
+\end{align}
+\end{enumerate}
+\end{remark}
+From these remarks, we can sum up the equation ~\eqref{int1} 
+when $(x',y')\in \mathbb{R}^2\setminus\overline{\Omega_0}$, not in boundary as
+\begin{align}
+ -u_0 \integ{\Gamma_0}{}{n_x G_{x',y'}(x,y) \, ds}-
+\integ{\Gamma_0}{}{\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds}+\psi_{x',y'}=0\\
+\psi_{x',y'}(x,y)=\integ{\Gamma_0}{}{n_x G_{x',y'}(x,y) +\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds} \label{BIform}
+\end{align}
+We call equation ~\eqref{BIform} as Boundary Integral Formulation in $(x',y')\in \mathbb{R}^2\setminus\overline{\Omega_0}$.
+
+Next, We want to compute $\psi$ on the boundary. It is because essentially, from ~\eqref{BIform}, the value of $\psi$ inside the domain, depend on the values 
+$\psi$ terms on the boundary. In order to obtain a closed integral equation, we want to evaluate $\psi(x',y')$
+when $(x',y')\to \Gamma_0$. When we do this calculation, the problem appears. If $(x',y') \in \Gamma_0$, the singularities of $G$ ang $\nabla G$ are on the path 
+of integration.
+
+To overcome these singularities, let us approximate the integral on $\Gamma_0$ with an integral on ${\Gamma_0}^\varepsilon$.
+With $\varepsilon >0$.
+
+picture here...
+
+From the picture, as $\varepsilon\to0$, we expect $\integ{{\Gamma_0}^\varepsilon=\Omega_\varepsilon}{}{(\cdot)} \to \integ{\Gamma_0}{}{(\cdot)}$.
+We know how to compute $\integ{{\Gamma_0}^\varepsilon=\Omega_\varepsilon}{}{(\cdot)}$, there are no singularities.
+
+Let we calculate the Boundary Integral Formulation on the boundary. If $(x',y')\in \Gamma_0$, let we multiply equation 
+~\eqref{problem5} by $G_{x',y'} $ and integrate over $\Omega_\varepsilon$.
+\begin{align}
+\integ{\Omega_\varepsilon}{}{ \Delta \psi(x,y) G_{x',y'}(x,y)}=0\\
+\integ{\partial\Omega_\varepsilon}{}{(G_{x',y'}\nabla \psi \cdot n) }-
+\left\{\integ{\partial\Omega_\varepsilon}{}{\psi \nabla G_{x',y'}(x,y)\cdot n }-
+\integ{\Omega_\varepsilon}{}{\psi (x,y)\Delta G_{x',y'}(x,y) }\right\}=0 \\
+-\integ{\partial\Omega_\varepsilon}{}{G_{x',y'}u_0 n_x}-\integ{\partial\Omega_\varepsilon}{}{\psi \nabla G_{x',y'}\cdot n}+0=0\\
+\integ{\partial\Omega_\varepsilon}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n} =0 \label{BIboundary}
+\end{align}
+
+Let us examine $\integ{\partial\Omega_\varepsilon}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}$ as $\varepsilon\to0$
+\begin{equation}
+ \integ{\partial\Omega_\varepsilon}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}=
+ \integ{C_\varepsilon}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}+
+ \integ{\partial\Omega_\varepsilon\setminus C_\varepsilon}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}
+\end{equation}
+When $\varepsilon\to0$, if $\integ{\partial\Omega_\varepsilon\setminus C_\varepsilon}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}$ has a limit, then it is called The cauchy Principal Value. 
+We denote it $\displaystyle\fpint{\partial\Omega}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}$.
+
+let us examine $\integ{C_\varepsilon}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}$ as $\varepsilon\to0$.
+\begin{align}
+\integ{C_\varepsilon}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}
+=& \integ{\theta^\ast}{\theta^\ast+\pi}{\left\{ \dfrac{1}{2\pi}\ln(\varepsilon) u_0 n_x+\psi \dfrac{1}{2\pi} \dfrac{1}{\varepsilon}\right\}\varepsilon \, d\theta }\\
+=& \dfrac{1}{2\pi}\varepsilon\ln{\varepsilon}\integ{\theta^\ast}{\theta^\ast+\pi}{u_0 n_x \, d\theta}
++ \integ{\theta^\ast}{\theta^\ast+\pi}{\dfrac{1}{2\pi}\psi \, d\theta}\\
+=&\integ{\theta^\ast}{\theta^\ast+\pi}{\dfrac{1}{2\pi}\psi \, d\theta}\\
+=&\dfrac{1}{2\pi}\psi \integ{\theta^\ast}{\theta^\ast+\pi}{\, d\theta}= \dfrac{1}{2\pi}\psi(x',y') \label{residual}
+\end{align}
+Result from ~\eqref{residual} is called a ``Residual Term''.
+
+Now, we can compute ~\eqref{BIboundary} when $\varepsilon\to0$ as follows:
+\begin{align}
+ \integ{\partial\Omega_\varepsilon}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}&=0\\
+\fpint{\partial\Omega}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}+\dfrac{1}{2\pi}\psi(x',y')&=0\\
+\dfrac{1}{2\pi}\psi(x',y')=-\fpint{\partial\Omega}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}\label{BIboundary1}
+\end{align}
+Next, we can calculate all these terms with numerical method.
+
+\section{Numerical Methods}
+\subsection{Solving Boundary Integral Formulation on an Obstacle}
+
+We want to solve numerically Boundary Integral Formulation on the ostacle as we get in equation ~\eqref{BIboundary1}. 
+First, we consider that on the boundary of obstacle, we have N partitions. In each partitions we have
+\begin{equation}
+ \psi(x,y)=\sum\limits_{i=1}^N \psi_i e_i(x,y)
+\end{equation}
+with $\psi_i=\psi(x_i,y_i)$ and 
+ \[ e_i(x,y) = \left\{
+  \begin{array}{l l}
+    1 & \quad \text{if $(x,y)\in S_i$ }\\
+    0 & \quad \text{otherwise}
+  \end{array} =\chi_{S_i}\right.\].
+
+picture here...
+
+For $i$ from 1 to $n$ we can write ~\eqref{BIboundary1} as 
+\begin{align}
+ \underbrace{\dfrac{1}{2\pi}\psi(x_i,y_i)}_\text{1} + 
+   \underbrace{\fpint{\partial\Omega}{}{\psi \nabla G_{x_i,y_i}\cdot n}}_\text{2}=\underbrace{-\fpint{\partial\Omega}{}{G_{x_i,y_i}u_0n_x}}_\text{3}
+\end{align}
+Let we see each items:
+\begin{enumerate}
+ \item $ \dfrac{1}{2\pi}\psi(x_i,y_i) = \dfrac{1}{2\pi}\psi_i$  
+ \item $\displaystyle\fpint{\partial\Omega}{}{\psi \nabla G_{x_i,y_i}\cdot n}=\displaystyle\fpint{\partial\Omega}{}{\left\{\sum\limits_{j=1}^N \psi_j \varepsilon_j\right\} \nabla G_{x_i,y_i}\cdot n}$
+ \begin{align}
+\fpint{\partial\Omega}{}{\psi \nabla G_{x_i,y_i}\cdot n}&=\fpint{\partial\Omega}{}{\left\{\sum\limits_{j=1}^N \psi_j \varepsilon_j\right\} \nabla G_{x_i,y_i}\cdot n}\\
+&=\fpint{\partial\Omega}{}{\left\{\sum\limits_{j=1}^N \psi_j \varepsilon_j\nabla G_{x_i,y_i}\cdot n\right\} }\\
+&= \sum\limits_{j=1}^N \left\{ \displaystyle\fpint{\partial\Omega}{}{\psi_je_j\nabla G_{x_i,y_i}\cdot n } \right\}\\
+&=\sum\limits_{j=1}^N \psi_j \left\{ \displaystyle\fpint{\partial\Omega}{}{\nabla G_{x_i,y_i}\cdot n e_j} \right\}\\
+&=\sum\limits_{j=1}^N\psi_j \left\{ \fpint{S_j}{}{\nabla G_{x_i,y_i}\cdot n} \right\}\\
+&=\sum\limits_{j=1}^N \psi_j m_{ij}=(M\psi)_i
+\end{align}
+with \[
+      M=(m_{ij})_{\substack{i=1 \cdots N \\j=1 \cdots N}}
+     \]
+and
+\[
+\psi=(\psi_j)_{j=1,\cdots,N}. 
+\]
+
+
+\end{enumerate}
+
+
+
+
+
+\subsection{Solving Boundary Integral Formulation in Domain}
 
 
 \end{document}

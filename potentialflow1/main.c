@@ -302,7 +302,7 @@ int main(){
 
 	for(i=0;i<(Hx*Hy);i++){
 
-                fprintf(fp,"%f\t%f\t%f\t%f\t%f\n",XXV[i],YYV[i],VVx[i],VVy[i],PPhiv[i]);
+                fprintf(fp,"%f\t%f\t%f\t%f\t%f\n",XXV[i],YYV[i],VVx[i]+1,VVy[i],PPhiv[i]);
         }
 
         fclose(fp);
