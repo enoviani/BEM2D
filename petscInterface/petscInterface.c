@@ -74,6 +74,8 @@ void petscMulti(double* matrix,int M, int N, double* vectorx, double* vectory){
 	PetscFinalize();
 }
 */
+
+
 void petscSolve(double* matrix,int N,double* rhs, double* x1){
 	Vec		 x, b;      /* approx solution, RHS, exact solution */
 	Mat            A;            /* linear system matrix */

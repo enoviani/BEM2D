@@ -28,3 +28,15 @@ void multipleMatrix(double** matrix1, int row1, int col1, double* vector,int row
         else
         {printf("the size of matrix is not compatible for mutiplying matrix!!");}
 }
+
+
+double** createEmptyMatrix(int M,int N){
+	  double** Matrix= malloc(M*sizeof(double*));
+	    int i;
+	      for(i=0;i<M;i++){
+		          Matrix[i]=malloc(N*sizeof(double));
+
+			    }
+	        return Matrix;
+}
+
