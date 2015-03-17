@@ -29,10 +29,26 @@ int test_petscSolve(){
 	return pass;
 }
 
+int test_petscMatVecMult(){
+	double M[6]={1,2,3,4,5,6};
+	double X[3]={1,0,1};
+	double Y[2]={0,0};
+	petscMatVecMult(M,2,3,X,Y);
+	int pass;
+	if(sqrt((Y[0]-4)*(Y[0]-4)+(Y[1]-10)*(Y[1]-10))<1e-5)
+		pass=1;
+	else
+		pass=0;
+	return pass;
+}
+
 // Running all the test and print the pass/nopass statement
 
 int main(){
-	printf("test_petscSolve: %s\n",isPass(test_petscSolve()));
+	petscInit();
+	printf("test_petscSolve:\t%s\n",isPass(test_petscSolve()));
+	printf("test_petscMatVecMult:\t%s\n",isPass(test_petscMatVecMult()));
+	petscEnd();
 	return 0;
 }
 
