@@ -80,43 +80,46 @@ From here we get:
  \Delta \phi=0
 \end{equation}
 
-Let usconsider fluid in an infinite domain. We have the velocity $u_0$ along $x$ in one direction.  This conditions can be written as
+Let us consider a fluid in an infinite domain. Far from the obstacle, we suppose that the velocity is uniform. Without loss of generality, 
+we assume that its direction is $\vec{e_x}$. 
+This condition can be written as
 \begin{equation} \label{Pr2}
-u=u_0\vec{e_x}
+u=u_0\vec{e_x} \quad \text{as }|x|\to\infty, |y|\to\infty
 \end{equation}
-From ~\eqref{Pr1} and ~\eqref{Pr2}, we have problem:
-
-
+From ~\eqref{Pr1} and ~\eqref{Pr2}, we obtain the system:
 \begin{align} \label{problem1}
 \Delta \phi &=0\\
 u=\nabla \phi &\to u_0 \vec{e_x} \quad \text{as } x\to\pm\infty
 \end{align}
-This problem has obvious solution i.e $\phi= u_0 x$.
+Without any abstacle, this problem has the obvious solution i.e $\phi= u_0 x$.
 
-Let we add a regular obstacle $\Omega_0$. We consider $\partial\Omega_0$ to be $C^1$. It means the obstacle doesn't have angle nor discontinuity. 
+Let us add a regular obstacle $\Omega_0$. We consider $\partial\Omega_0$ to be $C^1$. It means the obstacle doesn't have any angles nor discontinuities. 
 On the border of the obstacle, the velocity is tangential.
 \begin{equation}\label{eq1}
 u\cdot n=0
 \end{equation}
 with $n$ is the (exterior) normal vector of $\Omega_0$.
-We substitute $u=\nabla\phi$ to ~\eqref{eq1}, we get 
+We substitute $u=\nabla\phi$ to~\eqref{eq1}, we get 
 \begin{equation}\label{Pr3}
 \nabla\phi\cdot n=0
 \end{equation}
-Equation ~\eqref{Pr3} is called Homogeneous Neumann Boundary Condition.  
-From equation ~\eqref{Pr0},~\eqref{Pr1}, ~\eqref{Pr2} and ~\eqref{Pr3}, we obtain the problem:
+Equation~\eqref{Pr3} is called an homogeneous Neumann boundary condition.  
+
+From equation~\eqref{Pr0},~\eqref{Pr1},~\eqref{Pr2} and~\eqref{Pr3}, we obtain the problem:
 \begin{align} \label{problem2}
-\Delta \phi=0 \quad \text{On: } \mathbb{R}^2 \setminus \overline{\Omega_0}\\
+\Delta \phi=0 \quad \text{On: } \mathbb{R}^2 \setminus \overline{\Omega_0}=\Omega\\
 u=\nabla\phi\to u_0\vec{e_x}\quad \text{as } x \to \pm\infty\\
 \nabla\phi \cdot n=0 \quad \partial \Omega_0=\Gamma_0
 \end{align}
-We have to find the harmonic function that satisfies all the boundary conditions.
+The problem is hence to find the harmonic function that satisfies all the boundary conditions.
 
-Without the obstacle, problem ~\eqref{problem1} has solution $u_0x$. We can use it to find $\phi$. Let we do the changing variable in order to get the solution of problem ~\eqref{problem2}.
-Let $\psi=\phi-u_0 x$ and $\phi$ is the actual solution. 
-
+Without the obstacle, problem~\eqref{problem1} has solution $u_0x$. We can use it to find $\phi$. Let us perform a change of variable in order to get the solution of problem~\eqref{problem2}.
+Let us define 
+\begin{equation}
+\psi=\phi-u_0 x \label{changevar} 
+\end{equation}
+If we substitute~\eqref{changevar} to the problem~\eqref{problem2} we can obtainas follows:
 \begin{align}
-\psi&=\phi-u_0 x\\
  \Delta \psi &= \Delta \phi-\Delta (u_0x)\\
 \Delta \psi &= \Delta \phi\\
 \nabla \psi &= \nabla\phi-u_0\vec{e_x}
@@ -126,18 +129,18 @@ From here, we get
 \begin{equation}
  \nabla\psi\to0 \quad \text{as } x\to\pm\infty
 \end{equation}
-From the last condition in ~\eqref{problem2} we get
+From the last condition in~\eqref{problem2} we get
 \begin{align} 
- \nabla\psi\cdot n &= \nabla(\phi-u_0 x)\cdot n \text{on } \Gamma_0\\
+\nabla\psi\cdot n &= \nabla(\phi-u_0 x)\cdot n \text{on } \Gamma_0\\
 &=\nabla\phi \cdot n - \nabla(u_0 x)\cdot n\\
 &=0-u_0\nabla x\cdot n\\
 &=-u_0 \vec{e_x} \cdot n\\
 &=-u_0 n_x
 \end{align}
 
-The problem after changing variable become
+The problem become, after changing variable:
 \begin{align}  \label{problem3}
-\Delta \psi=0 \quad \text{in } \mathbb{R}^2 \setminus \overline{\Omega_0}\\
+\Delta \psi=0 \quad \text{in } \Omega\\
 \nabla\psi \to 0 \quad \text{as } x\to\pm\infty\\
 \nabla\psi \cdot n = -u_0 n_x \quad \text{on } \Gamma_0 
 \end{align}
@@ -154,25 +157,17 @@ matters to us is $\nabla\psi$.
  \nabla \psi=\nabla\Tilde{\psi}
 \end{equation}
 \end{remark}
-From this remark, we have to select one of the solutions. We do it by adding a condition:
-\begin{equation}
- \psi \to 0 \quad \text{as} x\to\pm\infty, y\to\pm\infty
-\end{equation}
-If $\psi$ supposed regular, then 
-\begin{align}
- \psi\to0 \quad \text{as } x\to\pm\infty\\
-\Rightarrow \nabla\psi\to0 \quad \text{as } x\to\pm\infty
-\end{align}
 From here we get the actual problem is
 \begin{align}  \label{problem4}
-\Delta \psi=0 \quad \text{in } \mathbb{R}^2 \setminus \overline{\Omega_0}\\
-\psi \to 0 \quad \text{as } x\to\pm\infty ?\\
+\Delta \psi=0 \quad \text{in } \Omega\\
+\nabla\psi \to 0 \quad \text{as } x\to\pm\infty ?\\
 \nabla\psi \cdot n = -u_0 n_x \quad \text{on } \Gamma_0 
 \end{align}
 
 \begin{remark}
  We didn't proof the existence and uniqueness solution of the ~\eqref{problem4} nor their regularity. We assume that 
 the problem has all things we need.
+In order to obtain the uniqueness, we will have to set the constant?, which will be done by selecting a particular Green function.
 \end{remark}
 
 \section{The Boundary Integral Equation}
@@ -184,37 +179,36 @@ Let $G_{x',y'} (x,y)$ be the Green function of Laplacian problem 2D.
 $G$ has some properties:
 \begin{align}
  \Delta G_{x',y'}=\delta_{x',y'}\\
- G_{x',y'}\to0\quad \text{at}\quad (x,y)\to\infty
+ \nabla G_{x',y'}\to0\quad \text{at}\quad (x,y)\to\pm \infty
 \end{align}
 
-Let we see the problem:
+Let we us examine the problem:
 \begin{align}  \label{problem5}
-\Delta \psi=0 \quad \text{in } \mathbb{R}^2 \setminus \overline{\Omega_0}\\
+\Delta \psi=0 \quad \text{in } \Omega\\
 \psi \to 0 \quad \text{as } x\to\pm\infty\\
-\nabla\psi \cdot n = -u_0 n_x \quad \text{on } \Gamma_0 
+\nabla\psi \cdot n = -u_0 n_x \quad \text{on } \Gamma_0 37
 \end{align}
-Let us multiply the first equation in ~\eqref{problem5} with $G_{x',y'}$ and integrate over 
-$\mathbb{R}^2 \setminus \overline{\Omega_0}$. By integrating by parts, we get:
+If we multiply the first equation in ~\eqref{problem5} with $G_{x',y'}$ and integrate over 
+$\Omega$. By integrating by parts, we get:
 \begin{align}
-\delta\psi=0\\
-\Leftrightarrow&\integ{\mathbb{R}^2 \setminus \overline{\Omega_0}}{}{ \Delta \psi(x,y) G_{x',y'}(x,y) \, dxdy}=0\\
-\Leftrightarrow& \integ{\Gamma_0}{}{(\nabla \psi \cdot n)G_{x',y'} \, ds}-\integ{\mathbb{R}^2 \setminus \overline{\Omega_0}}{}
-{\nabla\psi (x,y) \nabla G_{x',y'}(x,y) \, dxdy}=0\\
-\Leftrightarrow&\integ{\Gamma_0}{}{\Gamma_0}{}{(\nabla \psi \cdot n)G_{x',y'} \, ds}-
-\left\{\integ{\Gamma_0}{}{\psi \nabla G_{x',y'}(x,y)\cdot n \, ds1}-
-\integ{\mathbb{R}^2 \setminus \overline{\Omega_0}}{}{\Delta G_{x',y'}(x,y) \psi (x,y) \, dxdy}\right\}=0 \label{int1}
+\Delta\psi=0\\
+\Rightarrow&\integ{\Omega}{}{ \Delta \psi G_{x',y'}}=0\\
+\Rightarrow& \integ{\Gamma_0}{}{(\nabla \psi \cdot n)G_{x',y'}}-\integ{\Omega}{}
+{\nabla\psi \nabla G_{x',y'}}=0\\
+\Rightarrow&\integ{\Gamma_0}{}{(\nabla \psi \cdot n)G_{x',y'}}-
+\left\{\integ{\Gamma_0}{}{\psi \nabla G_{x',y'}\cdot n}-
+\integ{\Omega}{}{\Delta G_{x',y'} \psi}\right\}=0 \label{int1}
 \end{align}
-let we postpone the result of ~\eqref{int1} until these few remarks.
-
+let we postpone the result of~\eqref{int1} until these few remarks.
 \begin{remark}
- If $(x',y')\in \mathbb{R}^2 \setminus\overline{\Omega_0}$, then we obtain the following results:
+ If $(x',y')\in \Omega=\mathbb{R}^2 \setminus\overline{\Omega_0}$, then we obtain the following results:
 \begin{enumerate}
  \item By using boundary condition
 \begin{align}
  \integ{\Gamma_0}{}{\psi \nabla G_{x',y'}(x,y)\cdot n \, ds1}&=\integ{\Gamma_0}{}{-u_0 n_x G_{x',y'} \, ds}\\
 &= -u_0 \integ{\Gamma_0}{}{n_x G_{x',y'} \, ds}
 \end{align}
-\item By definition of GreenFunction and dirac distribution
+\item By definition of Green function and dirac distribution
 \begin{align}
  \integ{\mathbb{R}^2 \setminus \overline{\Omega_0}}{}{\Delta G_{x',y'}(x,y) \psi (x,y) \, dxdy}&=
 {\langle\delta_{x',y'}{,} \psi\rangle}_{D',D}\\
@@ -222,18 +216,18 @@ let we postpone the result of ~\eqref{int1} until these few remarks.
 \end{align}
 \end{enumerate}
 \end{remark}
-From these remarks, we can sum up the equation ~\eqref{int1} 
-when $(x',y')\in \mathbb{R}^2\setminus\overline{\Omega_0}$, not in boundary as
+From these remarks, we can sum up the equation~\eqref{int1} 
+when $(x',y')\in\mathbb{R}^2\setminus\overline{\Omega_0}$, not in boundary as
 \begin{align}
  -u_0 \integ{\Gamma_0}{}{n_x G_{x',y'}(x,y) \, ds}-
 \integ{\Gamma_0}{}{\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds}+\psi_{x',y'}=0\\
 \psi_{x',y'}(x,y)=\integ{\Gamma_0}{}{n_x G_{x',y'}(x,y) +\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds} \label{BIform}
 \end{align}
-We call equation ~\eqref{BIform} as Boundary Integral Formulation in $(x',y')\in \mathbb{R}^2\setminus\overline{\Omega_0}$.
+We call equation~\eqref{BIform} as Boundary Integral Formulation in $(x',y')\in \mathbb{R}^2\setminus\overline{\Omega_0}$.
 
-Next, We want to compute $\psi$ on the boundary. It is because essentially, from ~\eqref{BIform}, the value of $\psi$ inside the domain, depend on the values 
+Next, We want to compute $\psi$ on the boundary. It is because essentially, from~\eqref{BIform}, the value of $\psi$ inside the domain, depend on the values 
 $\psi$ terms on the boundary. In order to obtain a closed integral equation, we want to evaluate $\psi(x',y')$
-when $(x',y')\to \Gamma_0$. When we do this calculation, the problem appears. If $(x',y') \in \Gamma_0$, the singularities of $G$ ang $\nabla G$ are on the path 
+when $(x',y')\to\Gamma_0$. When we do this calculation, the problem appears. If $(x',y')\in\Gamma_0$, the singularities of $G$ ang $\nabla G$ are on the path 
 of integration.
 
 To overcome these singularities, let us approximate the integral on $\Gamma_0$ with an integral on ${\Gamma_0}^\varepsilon$.
@@ -241,10 +235,10 @@ With $\varepsilon >0$.
 
 picture here...
 
-From the picture, as $\varepsilon\to0$, we expect $\integ{{\Gamma_0}^\varepsilon=\Omega_\varepsilon}{}{(\cdot)} \to \integ{\Gamma_0}{}{(\cdot)}$.
+From the picture, as $\varepsilon\to0$, we expect $\integ{{\Gamma_0}^\varepsilon=\Omega_\varepsilon}{}{(\cdot)}\to\integ{\Gamma_0}{}{(\cdot)}$.
 We know how to compute $\integ{{\Gamma_0}^\varepsilon=\Omega_\varepsilon}{}{(\cdot)}$, there are no singularities.
 
-Let we calculate the Boundary Integral Formulation on the boundary. If $(x',y')\in \Gamma_0$, let we multiply equation 
+Let we calculate the Boundary Integral Formulation on the boundary. If $(x',y')\in \Gamma_0$, let we multiply equation
 ~\eqref{problem5} by $G_{x',y'} $ and integrate over $\Omega_\varepsilon$.
 \begin{align}
 \integ{\Omega_\varepsilon}{}{ \Delta \psi(x,y) G_{x',y'}(x,y)}=0\\
@@ -271,11 +265,12 @@ let us examine $\integ{C_\varepsilon}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\c
 =& \dfrac{1}{2\pi}\varepsilon\ln{\varepsilon}\integ{\theta^\ast}{\theta^\ast+\pi}{u_0 n_x \, d\theta}
 + \integ{\theta^\ast}{\theta^\ast+\pi}{\dfrac{1}{2\pi}\psi \, d\theta}\\
 =&\integ{\theta^\ast}{\theta^\ast+\pi}{\dfrac{1}{2\pi}\psi \, d\theta}\\
-=&\dfrac{1}{2\pi}\psi \integ{\theta^\ast}{\theta^\ast+\pi}{\, d\theta}= \dfrac{1}{2\pi}\psi(x',y') \label{residual}
+=&\dfrac{1}{2\pi}\psi \integ{\theta^\ast}{\theta^\ast+\pi}{\, d\theta}\\
+=& \dfrac{1}{2\pi}\psi(x',y') \label{residual}
 \end{align}
-Result from ~\eqref{residual} is called a ``Residual Term''.
+Result from~\eqref{residual} is called a ``Residual Term''.
 
-Now, we can compute ~\eqref{BIboundary} when $\varepsilon\to0$ as follows:
+Now, we can compute~\eqref{BIboundary} when $\varepsilon\to0$ as follows:
 \begin{align}
  \integ{\partial\Omega_\varepsilon}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}&=0\\
 \fpint{\partial\Omega}{}{u_0 G_{x',y'}n_x+\psi \nabla G_{x',y'}\cdot n}+\dfrac{1}{2\pi}\psi(x',y')&=0\\
@@ -286,24 +281,25 @@ Next, we can calculate all these terms with numerical method.
 \section{Numerical Methods}
 \subsection{Solving Boundary Integral Formulation on an Obstacle}
 
-We want to solve numerically Boundary Integral Formulation on the ostacle as we get in equation ~\eqref{BIboundary1}. 
+We want to solve numerically Boundary Integral Formulation on the ostacle as we get in equation~\eqref{BIboundary1}. 
 First, we consider that on the boundary of obstacle, we have N partitions. In each partitions we have
-\begin{equation}
- \psi(x,y)=\sum\limits_{i=1}^N \psi_i e_i(x,y)
-\end{equation}
-with $\psi_i=\psi(x_i,y_i)$ and 
+$\psi_i=\psi(x_i,y_i)$ and 
  \[ e_i(x,y) = \left\{
   \begin{array}{l l}
     1 & \quad \text{if $(x,y)\in S_i$ }\\
     0 & \quad \text{otherwise}
   \end{array} =\chi_{S_i}\right.\].
+we obtain the value of $\psi$ as
+\begin{equation}
+ \psi(x,y)=\sum\limits_{i=1}^N \psi_i e_i(x,y)
+\end{equation}
 
 picture here...
 
-For $i$ from 1 to $n$ we can write ~\eqref{BIboundary1} as 
+For $i$ from 1 to $n$ we can write~\eqref{BIboundary1} as 
 \begin{align}
  \underbrace{\dfrac{1}{2\pi}\psi(x_i,y_i)}_\text{1} + 
-   \underbrace{\fpint{\partial\Omega}{}{\psi \nabla G_{x_i,y_i}\cdot n}}_\text{2}=\underbrace{-\fpint{\partial\Omega}{}{G_{x_i,y_i}u_0n_x}}_\text{3}
+   \underbrace{\fpint{\partial\Omega}{}{\psi \nabla G_{x_i,y_i}\cdot n}}_\text{2}=\underbrace{-\fpint{\partial\Omega}{}{G_{x_i,y_i}u_0n_x}}_\text{3} \label{BIboundary2}
 \end{align}
 Let we see each items:
 \begin{enumerate}
@@ -360,11 +356,11 @@ we can also write $\eta$ and $\nu$ in radial coordinates as follows:
 \begin{align}
  \eta=r \cos\theta=H\\
 \nu=r \sin\theta\\
-\frac{\nu}{\eta}=\tan \theta \leftrightarrow \nu=\eta \tan \theta
+\frac{\nu}{\eta}=\tan \theta \Leftrightarrow \nu=\eta \tan \theta
 \end{align}
 along the integration line, $\eta=H$. 
 \begin{equation}
-  \nu=H \tan \theta \Leftrightarrow d\nu=H \frac{1}{\cos^2\theta}= H \sec^2\theta d\theta
+  \nu=H\tan\theta\Leftrightarrow d\nu=H \frac{1}{\cos^2\theta}= H \sec^2\theta d\theta
 \end{equation}
 With using these values, we can get
 \begin{align}
@@ -372,37 +368,88 @@ With using these values, we can get
 &=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{1}{2\pi} 
 \left( \ln(H\sec \theta) H \sec^2\theta \right)  \, d\theta}\\
 &=\frac{H}{2\pi} \fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\ln(H\sec\theta) H \sec^2\theta \mathrm{d}\theta}\\
-&=\frac{H}{2\pi}\left [ \tan \theta \ln (H\sec\theta)+\theta-\tan\theta \right ]_a^b
+&=\frac{H}{2\pi}\left [ \tan \theta \ln (H\sec\theta)+\theta-\tan\theta \right ]_{\theta_{j-\frac{1}{2}}}^{\theta_{j+\frac{1}{2}}}
 \end{align}
 \begin{align}
  m_{ij}&=\fpint{S_j}{}{\nabla G{x_i,y_i}(H,\nu)\cdot n}\\
- &= \fpint{S_j}{}{\frac{1}{2\pi} \left( \begin{array}{c}
+ &=\fpint{S_j}{}{\frac{1}{2\pi} \left( \begin{array}{c}
       \frac{2\eta}{2 \sqrt{\eta^2 + \nu^2} }\frac{1}{\sqrt{\eta^2 + \nu^2}} \\
       \frac{2\nu}{2 \sqrt{\eta^2 + \nu^2}} \frac{1}{\sqrt{\eta^2 + \nu^2}}
     \end {array} \right) \cdot n }=
         \fpint{S_j}{}{ \frac{1}{2\pi} \frac{1}{\eta^2 + \nu^2} \left(\begin{array}{c}
       \nu \\
       \eta
-    \end{array}\right) \cdot n}\\
-&=  \frac{1}{2\pi} \frac{1}{r^2} \left(\begin{array}{c}
+    \end{array}\right) \cdot n \, d\nu}\\
+&=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{1}{2\pi} \frac{1}{r^2} \left(\begin{array}{c}
       r \cos\theta \\
       r \sin \theta
-    \end{array}\right)
+    \end{array}\right)\cdot\left(\begin{array}{c}
+      -1 \\
+      0
+    \end{array}\right)H \sec^2\theta \, d\theta}\\
+&=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{-\cos\theta}{2\pi r}H \sec^2\theta \, d\theta}\\
+&=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{1}{2\pi H\sec^2\theta}H \sec^2\theta \, d\theta}\\
+&=- \frac{1}{2\pi} \fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\, d\theta}\\
+&=-\frac{1}{2\pi}(\theta_{j+\frac{1}{2}}-\theta_{j-\frac{1}{2}})
 \end{align}
 
-
-
-
-
-
  \item $i=j$
+ 
+picture here.....
+
+\begin{align}
+ P_{ij}=&\fpint{S_i}{}{G_{x_i,y_i}}\\
+ =&\lim_{\varepsilon \to 0} \integ{\nu_{i-\frac{1}{2}}}{-\varepsilon}{G_{x_i,y_i}(0,\nu) \, d\nu} + \integ{\varepsilon}{\nu_{i+\frac{1}{2}}}{G_{x_i,y_i}(0,\nu) \, d\nu}\\
+ =&\lim_{\varepsilon \to 0} \integ{\nu_{i-\frac{1}{2}}}{-\varepsilon}{\frac{1}{2\pi}\ln \left( \sqrt{0 + \nu^2}\right) \, d\nu}+
+ \integ{\varepsilon}{\nu_{i+\frac{1}{2}}}{\frac{1}{2\pi}\ln \left( \sqrt{0 + \nu^2}\right) \, d\nu}\\ 
+   =&\lim_{\varepsilon \to 0} \integ{-\frac{l_i}{2}}{-\varepsilon}{\frac{1}{2\pi}\ln\left( \lvert \nu \rvert \right) \, d\nu}+ 
+ \integ{\varepsilon}{\frac{l_i}{2}}{\frac{1}{2\pi} \ln\left( \lvert \nu \rvert \right) \, d\nu}\\
+ =&\frac{2}{2\pi} \lim_{\varepsilon \to 0} \integ{\varepsilon}{\frac{l_i}{2}}{\frac{1}{2\pi}\ln \left( \nu \right) \, d\nu}\\
+ =&\frac{1}{\pi} \lim_{\varepsilon \to 0} \left(\nu \ln\nu-\nu \right)_\varepsilon^{\frac{l_i}{2}}\\
+ =&\frac{1}{\pi} \lim_{\varepsilon \to 0} \left\{ \left( \frac{l_i}{2}\ln \left( \frac{l_i}{2} \right)-\frac{l_i}{2} \right)- \left( \varepsilon \ln\varepsilon- \varepsilon \right) \right\}\\
+=& \frac{1}{\pi} \left( \frac{l_i}{2}\ln \left( \frac{l_i}{2} \right)-\frac{l_i}{2} \right)
+ \end{align}
+ 
+ As long as $G$ is a radial function, $\nabla G$ is also radial (radial vector). We obtain 
+\begin{align}
+ m_{ij}&=\fpint{S_j}{}{\nabla G{x_i,y_i}\cdot n}\\
+ &=\lim_{\varepsilon \to 0} \integ{-\frac{l_i}{2}}{-\varepsilon}{\nabla G{x_i,y_i}\cdot n (0,\nu)}+ \integ{\varepsilon}{\nu_{i+\frac{1}{2}}}{\nabla G{x_i,y_i}\cdot n (0,\nu)}\\
+ &=\lim_{\varepsilon \to 0} \integ{-\frac{l_i}{2}}{-\varepsilon}{\frac{1}{2\pi} \frac{1}{\eta^2+\nu^2} \left(\begin{array}{c}
+      \nu \\
+      \eta
+    \end{array}\right) \left(\begin{array}{c}
+      -1 \\
+      0
+    \end{array}\right) (0,\nu)}+\integ{\varepsilon}{\nu_{i+\frac{1}{2}}}{\frac{1}{2\pi} \frac{1}{\eta^2+\nu^2} \left(\begin{array}{c}
+      \nu \\
+      \eta
+    \end{array}\right) \left(\begin{array}{c}
+      -1 \\
+      0
+    \end{array}\right) (0,\nu)}\\
+&=0
+\end{align}
+ 
 \end{enumerate}
 
-
-
-
+From the calculation above, we can write~\eqref{BIboundary2} as following equation  system:
+\begin{equation}\label{SPL}
+ \left( \frac{1}{2} I+M \right) \psi= -u_0 P N_x 
+\end{equation}
+with 
+\[  m_{ij}= \left\{
+  \begin{array}{l l}
+    0 & \quad \text{if $i=j$ }\\
+    -\frac{1}{2\pi}(\theta_{j+\frac{1}{2}}-\theta_{j-\frac{1}{2}}) & \quad \text{otherwise}
+  \end{array} \right.\]
+  and
+  \[  p_{ij}= \left\{
+  \begin{array}{l l}
+     \frac{1}{\pi} \left( \frac{l_i}{2}\ln \left( \frac{l_i}{2} \right)-\frac{l_i}{2} \right) & \quad \text{if $i=j$ }\\
+    \frac{H}{2\pi}\left [ \tan \theta \ln (H\sec\theta)+\theta-\tan\theta \right ]_{\theta_{j-\frac{1}{2}}}^{\theta_{j+\frac{1}{2}}} & \quad \text{otherwise}
+  \end{array} \right.\]
 
 \subsection{Solving Boundary Integral Formulation in Domain}
-
+We have to solve boundary integral formulation in domain $\Omega$ as in equation~\eqref{BIform}.
 
 \end{document}

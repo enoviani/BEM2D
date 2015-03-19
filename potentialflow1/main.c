@@ -32,6 +32,9 @@ int main(){
 	double dt=1.0/((double)(N-1));;
 	int i,j,ip,jp;
 	double** IdPlusM;
+	double a=1.0; // radius of circle(obstacle)
+	double u=2;// velocity far from the obstacle
+        double minu=-u;
 
 	X=malloc(N*sizeof(double));
 	Y=malloc(N*sizeof(double));
@@ -40,8 +43,8 @@ int main(){
 
 	for(i=0;i<N;i++){
 		sudut[i] = 2*PI*i*dt;
-		X[i]=0.5*(cos(sudut[i]));
-		Y[i]= 0.5*(sin(sudut[i]));
+		X[i]=a*(cos(sudut[i]));
+		Y[i]=a*(sin(sudut[i]));
 	}
 
 //	printf("Coordinates of Obstacle \n");
@@ -185,19 +188,20 @@ int main(){
 
 	//Building Discretization of domain
 
-	int Hx=10;
-	int Hy=10;
+	int Hx=11;
+	int Hy=11;
+	int numpoint=Hx*Hy;
 
-	double mesh1=-1.0;
-	double mesh2=1.0;
+	double mesh1=-1.2;
+	double mesh2=1.2;
 	double dhx=(mesh2-mesh1)/(double)(Hx-1); //Domain x is in [-1,1] with distance between successor and predesessor at x is dhx
 	double dhy=(mesh2-mesh1)/(double)(Hy-1); //Domain y is in [-1,1] with distance between successor and predesessor at y is dhy
 
 	double* XXV;
 	double* YYV;
 	// Building mesh in array (double*) //
-	XXV=malloc((Hx*Hy)*sizeof(double));
-	YYV=malloc((Hx*Hy)*sizeof(double));
+	XXV=malloc((numpoint)*sizeof(double));
+	YYV=malloc((numpoint)*sizeof(double));
 
 	k=0;
 	for (i=0;i<Hx;i++){
@@ -219,17 +223,17 @@ int main(){
 	double** PPy;
 	double** MM;
 	double** PP;
-	MMx=createEmptyMatrix((Hx*Hy),N);
-	PPx=createEmptyMatrix((Hx*Hy),N);
+	MMx=createEmptyMatrix(numpoint,N);
+	PPx=createEmptyMatrix(numpoint,N);
 
-	MMy=createEmptyMatrix((Hx*Hy),N);
-	PPy=createEmptyMatrix((Hx*Hy),N);
+	MMy=createEmptyMatrix(numpoint,N);
+	PPy=createEmptyMatrix(numpoint,N);
 
-	MM=createEmptyMatrix((Hx*Hy),N);
-	PP=createEmptyMatrix((Hx*Hy),N);
+	MM=createEmptyMatrix(numpoint,N);
+	PP=createEmptyMatrix(numpoint,N);
 
 	double eps=1E-6L;
-	for(i=0;i<(Hx*Hy);i++){
+	for(i=0;i<numpoint;i++){
 		for (j=0;j<N;j++){
 			jp=mod(j+1,N);
 			GreenBound(XXV[i],YYV[i],X[j],Y[j],X[jp],Y[jp],nx[j],ny[j],&(MM[i][j]),&(PP[i][j]));
@@ -250,29 +254,29 @@ int main(){
 	double* MMxPsi;
 	double* PPyn;
 	double* MMyPsi;
-	PPn=malloc((Hx*Hy)*sizeof(double));
-	MMPsi=malloc((Hx*Hy)*sizeof(double));
-	PPxn=malloc((Hx*Hy)*sizeof(double));
-	MMxPsi=malloc((Hx*Hy)*sizeof(double));
-	PPyn=malloc((Hx*Hy)*sizeof(double));
-	MMyPsi=malloc((Hx*Hy)*sizeof(double));
+	PPn=malloc(numpoint*sizeof(double));
+	MMPsi=malloc(numpoint*sizeof(double));
+	PPxn=malloc(numpoint*sizeof(double));
+	MMxPsi=malloc(numpoint*sizeof(double));
+	PPyn=malloc(numpoint*sizeof(double));
+	MMyPsi=malloc(numpoint*sizeof(double));
 
-	multipleMatrix(PPx, (Hx*Hy), N, nx, N, PPxn);
-	multipleMatrix(MMx, (Hx*Hy), N, Psi, N, MMxPsi);
-	multipleMatrix(PPy, (Hx*Hy), N, nx, N, PPyn);
-	multipleMatrix(MMy, (Hx*Hy), N, Psi, N, MMyPsi);
-	multipleMatrix(PP, (Hx*Hy), N, nx, N, PPn);
-	multipleMatrix(MM, (Hx*Hy), N, Psi, N, MMPsi);
+	multipleMatrix(PPx, numpoint, N, nx, N, PPxn);
+	multipleMatrix(MMx, numpoint, N, Psi, N, MMxPsi);
+	multipleMatrix(PPy, numpoint, N, nx, N, PPyn);
+	multipleMatrix(MMy, numpoint, N, Psi, N, MMyPsi);
+	multipleMatrix(PP, numpoint, N, nx, N, PPn);
+	multipleMatrix(MM, numpoint, N, Psi, N, MMPsi);
 
 	double* VVx;
 	double* VVy;
 	double* PPhiv;
-	VVx=malloc((Hx*Hy)*sizeof(double));
-	VVy=malloc((Hx*Hy)*sizeof(double));
-	PPhiv=malloc((Hx*Hy)*sizeof(double));
+	VVx=malloc(numpoint*sizeof(double));
+	VVy=malloc(numpoint*sizeof(double));
+	PPhiv=malloc(numpoint*sizeof(double));
 
 
-	for(i=0;i<(Hx*Hy);i++){
+	for(i=0;i<numpoint;i++){
 		VVx[i]=PPxn[i]-MMxPsi[i];
 		VVy[i]=PPyn[i]-MMyPsi[i];
 		PPhiv[i]=PPn[i]-MMPsi[i];
@@ -300,13 +304,46 @@ int main(){
 
         fp = fopen("domain.txt", "w");
 
-	for(i=0;i<(Hx*Hy);i++){
+	for(i=0;i<numpoint;i++){
 
-                fprintf(fp,"%f\t%f\t%f\t%f\t%f\n",XXV[i],YYV[i],VVx[i]+1,VVy[i],PPhiv[i]);
+                fprintf(fp,"%f\t%f\t%f\t%f\t%f\n",XXV[i],YYV[i],VVx[i]+u,VVy[i],PPhiv[i]);
         }
 
-        fclose(fp);
+	fclose(fp);
+
+	/* ********************************************
+	   Validate the result
+	 ***********************************************/
+	for(i=0;i<numpoint;i++){
+		VVx[i]=VVx[i]+u;//the actual velocity potential
+	}
+
+	double* valVVx;
+	double* valVVy;
+//	double T;
+//	double r; // r^2=x^2+y^2
+	double* errx;
+	double* erry;
+	valVVx=malloc(numpoint*sizeof(double));
+	valVVy=malloc(numpoint*sizeof(double));
+	errx=malloc(numpoint*sizeof(double));
+	erry=malloc(numpoint*sizeof(double));
+
+	for(i=0;i<numpoint;i++){
+	/*	r=sqrt(pow(XXV[i],2)+pow(YYV[i],2));
+		T=atan(YYV[i]/XXV[i]);
+		valVVx[i]=-minu*(r+((pow(a,2)/r)))*cos(T);
+		valVVy[i]=-minu*(r+((pow(a,2)/r)))*cos(T);//masih salah
+	*/
+		valVVx[i]=u*((pow(a,2)*(pow(YYV[i],2)-pow(XXV[i],2)))+(pow((pow(XXV[i],2)+pow(YYV[i],2)),2)))/(pow((pow(XXV[i],2)+pow(YYV[i],2)),2));
+		valVVy[i]=-u*(2*pow(a,2)*XXV[i]*YYV[i])/(pow((pow(XXV[i],2)+pow(YYV[i],2)),2));
+		errx[i]=(abs((valVVx[i]-VVx[i])/valVVx[i]))*100;
+		erry[i]=(abs((valVVy[i]-VVy[i])/valVVy[i]))*100;
+		printf("%d\t%f\t%f\n",i, errx[i],erry[i]);
+	}
+
+
+
 
 	return 1;
-
 }
