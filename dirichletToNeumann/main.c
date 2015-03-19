@@ -137,7 +137,7 @@ int main(int argc,char **argv)
 	err=err/N;
 	err=sqrt(err);
 
-	printf("Number of points: %i \t Error: %e\n",N,err);
+	printf("N:\t%i\terr:\t%e\n",N,err);
 
 
 	return 0;

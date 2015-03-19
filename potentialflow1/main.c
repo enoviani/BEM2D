@@ -4,7 +4,6 @@
 #include"green.h"
 #include"display.h"
 #include<complex.h>
-#include"emptyMatrix.h"
 #include"matrixOperation.h"
 #include"petscInterface.h"
 #include <petscksp.h>
@@ -32,6 +31,8 @@ int main(){
 	double dt=1.0/((double)(N-1));;
 	int i,j,ip,jp;
 	double** IdPlusM;
+
+	petscInit();
 
 	X=malloc(N*sizeof(double));
 	Y=malloc(N*sizeof(double));
@@ -307,6 +308,7 @@ int main(){
 
         fclose(fp);
 
+	petscEnd();
 	return 1;
 
 }
