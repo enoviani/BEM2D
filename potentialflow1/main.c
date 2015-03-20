@@ -320,8 +320,8 @@ int main(){
 
 	double* valVVx;
 	double* valVVy;
-//	double T;
-//	double r; // r^2=x^2+y^2
+	double T;
+	double r; // r^2=x^2+y^2
 	double* errx;
 	double* erry;
 	valVVx=malloc(numpoint*sizeof(double));
@@ -330,13 +330,17 @@ int main(){
 	erry=malloc(numpoint*sizeof(double));
 
 	for(i=0;i<numpoint;i++){
-	/*	r=sqrt(pow(XXV[i],2)+pow(YYV[i],2));
+		r=sqrt(pow(XXV[i],2)+pow(YYV[i],2));
 		T=atan(YYV[i]/XXV[i]);
-		valVVx[i]=-minu*(r+((pow(a,2)/r)))*cos(T);
+/*		valVVx[i]=-minu*(r+((pow(a,2)/r)))*cos(T);
 		valVVy[i]=-minu*(r+((pow(a,2)/r)))*cos(T);//masih salah
-	*/
+	
 		valVVx[i]=u*((pow(a,2)*(pow(YYV[i],2)-pow(XXV[i],2)))+(pow((pow(XXV[i],2)+pow(YYV[i],2)),2)))/(pow((pow(XXV[i],2)+pow(YYV[i],2)),2));
 		valVVy[i]=-u*(2*pow(a,2)*XXV[i]*YYV[i])/(pow((pow(XXV[i],2)+pow(YYV[i],2)),2));
+
+*/	
+		valVVx[i]= ((-1/2)*u*pow(a,3)*cos(T))/pow(r,2);
+		valVVy[i]=(-1/2)*u*pow(r,2)*pow(sin(T),2)*(1-(pow(a,3)/pow(r,3)));
 		errx[i]=(abs((valVVx[i]-VVx[i])/valVVx[i]))*100;
 		erry[i]=(abs((valVVy[i]-VVy[i])/valVVy[i]))*100;
 		printf("%d\t%f\t%f\n",i, errx[i],erry[i]);

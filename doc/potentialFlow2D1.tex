@@ -221,7 +221,7 @@ when $(x',y')\in\mathbb{R}^2\setminus\overline{\Omega_0}$, not in boundary as
 \begin{align}
  -u_0 \integ{\Gamma_0}{}{n_x G_{x',y'}(x,y) \, ds}-
 \integ{\Gamma_0}{}{\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds}+\psi_{x',y'}=0\\
-\psi_{x',y'}(x,y)=\integ{\Gamma_0}{}{n_x G_{x',y'}(x,y) +\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds} \label{BIform}
+\psi_{x',y'}(x,y)=\integ{\Gamma_0}{}{u_0 n_x G_{x',y'}(x,y) +\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds} \label{BIform}
 \end{align}
 We call equation~\eqref{BIform} as Boundary Integral Formulation in $(x',y')\in \mathbb{R}^2\setminus\overline{\Omega_0}$.
 
@@ -450,6 +450,7 @@ with
   \end{array} \right.\]
 
 \subsection{Solving Boundary Integral Formulation in Domain}
-We have to solve boundary integral formulation in domain $\Omega$ as in equation~\eqref{BIform}.
+
+We have to solve boundary integral formulation in domain $(x',y')\in \Omega$ as in equation~\eqref{BIform}. 
 
 \end{document}
