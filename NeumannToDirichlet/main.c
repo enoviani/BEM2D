@@ -20,7 +20,6 @@ void createCircle(int N, double** X, double** Y, double** xn, double** yn, doubl
 
 	// We first define the points of the boundary
 
-	double PI=3.14159265;
 	int i,ip;
 	double t;
 
@@ -29,7 +28,7 @@ void createCircle(int N, double** X, double** Y, double** xn, double** yn, doubl
 	double dt=1.0/N;
 
 	for(i=0;i<N;i++){
-		t = 2*PI*i*dt;
+		t = 2*M_PI*i*dt;
 		(*X)[i]=cos(t);
 		(*Y)[i]=sin(t);
 	}
@@ -69,7 +68,7 @@ int main(int argc,char **argv)
 {
 
 	double *X,*Y,*xn,*yn,*nx,*ny,*H;
-	double PI=3.14159265;
+	// double PI=3.14159265;
 	int N;
 	int i,j,jp,k;
 
@@ -95,8 +94,7 @@ int main(int argc,char **argv)
 			k=i+j*N;
 			jp=mod(j+1,N);
 			if (i==j){
-				M[k]=0.5;
-				P[k]=(1/(2*PI))*((H[i]*log(H[i]/2))-H[i]);
+				GreenBoundDiag(H[i],&(M[k]),&(P[k]));
 			}
 			else{
 				GreenBound(xn[i],yn[i],X[j],Y[j],X[jp],Y[jp],nx[j],ny[j],&(M[k]),&(P[k]));
@@ -114,7 +112,7 @@ int main(int argc,char **argv)
 	double wavenumber=5;
 
 	for(i=0;i<N;i++){
-		neum[i]=cos(2*PI*wavenumber*i/N);
+		neum[i]=cos(2*M_PI*wavenumber*i/N);
 	}
 
 	// Here we compute diri=-inv(M)*P*neum
@@ -132,7 +130,6 @@ int main(int argc,char **argv)
 	double err=0;
 	for(i=0;i<N;i++){
 		err=err+pow(abs(wavenumber)*diri[i]-neum[i],2);
-//		printf("%f \t %f \n",abs(wavenumber)*diri[i],neum[i]);
 	}
 	err=err/N;
 	err=sqrt(err);
