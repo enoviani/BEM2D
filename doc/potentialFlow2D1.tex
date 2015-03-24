@@ -12,6 +12,8 @@
 
 \usepackage{vmargin}            % red�finir les marges
 \usepackage{amsthm}
+\usepackage{graphicx,color}
+
 
 \setmarginsrb{2cm}{0.5cm}{2cm}{1cm}{0cm}{1cm}{0cm}{1cm}
 \newtheorem{remark}{Remark}
@@ -188,7 +190,7 @@ Let we us examine the problem:
 \psi \to 0 \quad \text{as } x\to\pm\infty\\
 \nabla\psi \cdot n = -u_0 n_x \quad \text{on } \Gamma_0 37
 \end{align}
-If we multiply the first equation in ~\eqref{problem5} with $G_{x',y'}$ and integrate over 
+If we multiply the first equation in~\eqref{problem5} with $G_{x',y'}$ and integrate over 
 $\Omega$. By integrating by parts, we get:
 \begin{align}
 \Delta\psi=0\\
@@ -230,12 +232,18 @@ $\psi$ terms on the boundary. In order to obtain a closed integral equation, we 
 when $(x',y')\to\Gamma_0$. When we do this calculation, the problem appears. If $(x',y')\in\Gamma_0$, the singularities of $G$ ang $\nabla G$ are on the path 
 of integration.
 
-To overcome these singularities, let us approximate the integral on $\Gamma_0$ with an integral on ${\Gamma_0}^\varepsilon$.
-With $\varepsilon >0$.
+To overcome these singularities, let $C_\varepsilon$ denote the sphere of radius $\varepsilon$ with it's center in $(x',y')$, on the surface $\Gamma_0$, 
+and let $\Gamma_0^\varepsilon$ denote the union of the $\Gamma_0$ and $C_\varepsilon$. 
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[height = 6cm]{lingkaran2.png}
+\end{center}
+ \caption{Domain to Avoid Singularity}\label{obstacleEpsilon}
+\end{figure}
 
-picture here...
-
-From the picture, as $\varepsilon\to0$, we expect $\integ{{\Gamma_0}^\varepsilon=\Omega_\varepsilon}{}{(\cdot)}\to\integ{\Gamma_0}{}{(\cdot)}$.
+Let us approximate the integral on $\Gamma_0$ with an integral on $\Gamma_0^\varepsilon$
+with $\varepsilon >0$.
+From the Figure \ref{obstacleEpsilon}, as $\varepsilon\to0$, we expect $\integ{{\Gamma_0}^\varepsilon=\Omega_\varepsilon}{}{(\cdot)}\to\integ{\Gamma_0}{}{(\cdot)}$.
 We know how to compute $\integ{{\Gamma_0}^\varepsilon=\Omega_\varepsilon}{}{(\cdot)}$, there are no singularities.
 
 Let we calculate the Boundary Integral Formulation on the boundary. If $(x',y')\in \Gamma_0$, let we multiply equation
@@ -288,8 +296,8 @@ $\psi_i=\psi(x_i,y_i)$ and
   \begin{array}{l l}
     1 & \quad \text{if $(x,y)\in S_i$ }\\
     0 & \quad \text{otherwise}
-  \end{array} =\chi_{S_i}\right.\].
-we obtain the value of $\psi$ as
+  \end{array} =\chi_{S_i}\right.\]
+We obtain the value of $\psi$ as
 \begin{equation}
  \psi(x,y)=\sum\limits_{i=1}^N \psi_i e_i(x,y)
 \end{equation}
