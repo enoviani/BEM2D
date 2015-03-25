@@ -4,7 +4,6 @@
 #include"green.h"
 #include"display.h"
 #include<complex.h>
-#include"emptyMatrix.h"
 #include"matrixOperation.h"
 #include"petscInterface.h"
 #include <petscksp.h>
@@ -34,7 +33,8 @@ int main(){
 	double** IdPlusM;
 	double a=1.0; // radius of circle(obstacle)
 	double u=2;// velocity far from the obstacle
-        double minu=-u;
+
+	petscInit();
 
 	X=malloc(N*sizeof(double));
 	Y=malloc(N*sizeof(double));
@@ -345,9 +345,6 @@ int main(){
 		erry[i]=(abs((valVVy[i]-VVy[i])/valVVy[i]))*100;
 		printf("%d\t%f\t%f\n",i, errx[i],erry[i]);
 	}
-
-
-
-
+	petscEnd();
 	return 1;
 }

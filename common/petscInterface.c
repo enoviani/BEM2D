@@ -1,20 +1,18 @@
 #include"petscInterface.h"
 
-/*
-void petscMulti(double* matrix,int M, int N, double* vectorx, double* vectory){
+void petscInit(){PetscInitializeNoArguments();}
+void petscEnd(){PetscFinalize();}
+
+void petscMatVecMult(double* matrix,int M, int N, double* vectorx, double* vectory){
 
         Vec      x, y;      // vector, result of multiplication
         Mat      A;    		// matrix
 	PetscInt       n = N; //column numbers of matrix 
 	PetscInt       m = M; // Row numbers of matrix
 	int i;
-	//PetscErrorCode ierr;
 
-	printf("-----------------sampai sini-----------------------\n");
-
-	PetscInitialize(NULL,NULL,(char*)0,NULL);
-	printf("-----------------sampai sini-----------------------\n");
 	// create vector x, size (N,1)//
+	
 	VecCreate(PETSC_COMM_WORLD,&x);
 	VecSetSizes(x,PETSC_DECIDE,n);
 	VecSetFromOptions(x);
@@ -25,8 +23,8 @@ void petscMulti(double* matrix,int M, int N, double* vectorx, double* vectory){
 		linesv[i]=i;
 	}
 	VecSetValues(x,n,linesv,vectorx, INSERT_VALUES);//	Set vector x from the input function  
-	
-	printf("-----------------sampai sini-----------------------");
+
+
 	// create vector y, size (M,1) as the result of matrix vector multiplication//
 	VecCreate(PETSC_COMM_WORLD,&y);
 	VecSetSizes(y,PETSC_DECIDE,m);
@@ -40,7 +38,7 @@ void petscMulti(double* matrix,int M, int N, double* vectorx, double* vectory){
 	MatSetUp(A);
 
 	//
-	   Assemble matrix
+//	   Assemble matrix
 	  //
 
 	int* idx=malloc(N*sizeof(int));
@@ -70,10 +68,12 @@ void petscMulti(double* matrix,int M, int N, double* vectorx, double* vectory){
         for(i=0;i<N;i++)
                 vectory[i]=temp[i];
 
-
-	PetscFinalize();
+	VecDestroy(&x);
+	VecDestroy(&y);
+	MatDestroy(&A);
 }
-*/
+
+
 void petscSolve(double* matrix,int N,double* rhs, double* x1){
 	Vec		 x, b;      /* approx solution, RHS, exact solution */
 	Mat            A;            /* linear system matrix */
@@ -83,8 +83,6 @@ void petscSolve(double* matrix,int N,double* rhs, double* x1){
 	PetscInt       n = N;
 
 	int i;
-
-	PetscInitialize(NULL,NULL,(char*)0,NULL);
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	   Compute the matrix and right-hand-side vector that define
@@ -181,5 +179,10 @@ void petscSolve(double* matrix,int N,double* rhs, double* x1){
 		x1[i]=temp[i];
 
 
-	ierr = PetscFinalize();
+	VecDestroy(&x);
+	VecDestroy(&b);
+	MatDestroy(&A);
+
+	KSPDestroy(&ksp);
+
 }

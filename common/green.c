@@ -1,6 +1,11 @@
 #include"green.h"
 
 
+void GreenBoundDiag(double H, double* pm, double* pp){
+	*pm=-0.5;
+	*pp=(1/(2*M_PI))*(H*log(H/2)-H);
+}
+
 void GreenBound(double xx, double yy, double xm, double ym,double xp,double yp, double nx, double ny, double* pm, double* pp){
 
   double PI=3.14159265;
