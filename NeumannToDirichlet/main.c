@@ -1,26 +1,16 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-#include"green.h"
 #include<complex.h>
-#include"petscInterface.h"
 #include <petscksp.h>
+#include"common.h"
 
-
-int mod (int a, int b)
-{
-	int ret = a % b;
-	if(ret < 0)
-		ret+=b;
-	return ret;
-}
 
 void createCircle(int N, double** X, double** Y, double** xn, double** yn, double** nx, double** ny,double** H)
 {
-
 	// We first define the points of the boundary
 
-	int i,ip;
+	int i;
 	double t;
 
 	*X=malloc(N*sizeof(double));
@@ -33,31 +23,12 @@ void createCircle(int N, double** X, double** Y, double** xn, double** yn, doubl
 		(*Y)[i]=sin(t);
 	}
 
-	// Then we compute the segment middle points
+	printf("Hi there !\n");
+	computeNormals(*X, *Y,N,nx,ny,H);
+	printf("Hi there !\n");
+	computeMidPoints(*X, *Y, N,xn,yn);
+	printf("Hi there !\n");
 
-	*xn = malloc(N*sizeof(double));
-	*yn = malloc(N*sizeof(double));
-
-	for(i=0;i<N;i++){
-		ip=mod(i+1,N);
-		(*xn)[i]= ((*X)[ip]+(*X)[i])/2;
-		(*yn)[i]= ((*Y)[ip]+(*Y)[i])/2;
-	}
-
-	// Normal vectors
-	
-	*nx=malloc(N*sizeof(double));
-	*ny=malloc(N*sizeof(double));
-	*H=malloc(N*sizeof(double));
-
-	for(i=0;i<N;i++){
-		ip=mod(i+1,N);
-		(*nx)[i]= -((*Y)[ip]-(*Y)[i]);
-		(*ny)[i]= (*X)[ip]-(*X)[i];
-		(*H)[i]= sqrt(pow((*nx)[i],2)+pow((*ny)[i],2));
-		(*nx)[i]=(*nx)[i]/(*H)[i];
-		(*ny)[i]=(*ny)[i]/(*H)[i];
-	}
 }
 
 // Validation of the boundary integral problem on the neuman to dirichlet problem on the unit circle

@@ -2,14 +2,12 @@
 
 
 void GreenBoundDiag(double H, double* pm, double* pp){
-	*pm=-0.5;
+	*pm=0.5;
 	*pp=(1/(2*M_PI))*(H*log(H/2)-H);
 }
 
 void GreenBound(double xx, double yy, double xm, double ym,double xp,double yp, double nx, double ny, double* pm, double* pp){
 
-  double PI=3.14159265;
-  
   double amx=xm-xx;
   double amy=ym-yy;
 
@@ -35,7 +33,7 @@ void GreenBound(double xx, double yy, double xm, double ym,double xp,double yp, 
 
 //  printf("%f \t %f \n",copysign(1.0,(sig*(nx*amy-ny*amx))),copysign(1.0,(sig*(nx*apy-ny*apx))));
 
-  *pm=(1/(2*PI))*(ThetaP-ThetaM);
-  *pp=(-sig*(H/(2*PI))*((tan(ThetaP)*(clog(H*(1.0/cos(ThetaP)))-1)+ThetaP)-(tan(ThetaM)*(clog(H*(1.0/cos(ThetaM)))-1)+ThetaM)));
+  *pm=(1/(2*M_PI))*(ThetaP-ThetaM);
+  *pp=(-sig*(H/(2*M_PI))*((tan(ThetaP)*(log(H*(1.0/cos(ThetaP)))-1)+ThetaP)-(tan(ThetaM)*(log(H*(1.0/cos(ThetaM)))-1)+ThetaM)));
   
 }

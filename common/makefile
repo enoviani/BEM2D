@@ -1,6 +1,6 @@
 default: common 
 
-common: interface greenstuff
+common: interface greenstuff geom
 	ar -cvq common.a *.o
 
 include ${PETSC_DIR}/conf/variables
@@ -8,12 +8,15 @@ include ${PETSC_DIR}/conf/rules
 
 interface: petscInterface.o  chkopts
 greenstuff: green.o  chkopts
+geom: geometry.o chkopts
 
-test: common
-	-${CLINKER} -o tests test_petscInterface.c petscInterface.o ${PETSC_CC_INCLUDES} ${PETSC_KSP_LIB}
-	./tests
-	@make clean
-	@rm tests
+test: clean
+	make -s common
+	@-${CLINKER} -o petsctests test_petscInterface.c common.a ${PETSC_CC_INCLUDES} ${PETSC_KSP_LIB}
+	./petsctests
+	@-${CLINKER} -o greentests test_green.c common.a ${PETSC_CC_INCLUDES} ${PETSC_KSP_LIB}
+	./greentests
+	@rm petsctests greentests
 
 clean ::
-	@rm *.a
+	@rm -f *.a
