@@ -2,7 +2,7 @@
 
 
 void GreenBoundDiag(double H, double* pm, double* pp){
-	*pm=0.5;
+	*pm=-0.5;
 	*pp=(1/(2*M_PI))*(H*log(H/2)-H);
 }
 
