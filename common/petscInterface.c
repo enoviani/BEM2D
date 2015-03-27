@@ -56,6 +56,7 @@ void petscMatVecMult(double* matrix,int M, int N, double* vectorx, double* vecto
 		idy[i]=i;
 	}
 
+
 	MatSetValues(A,M,idy,N,idx,matrix,INSERT_VALUES);
 	MatAssemblyBegin(A,MAT_FINAL_ASSEMBLY);
 	MatAssemblyEnd(A,MAT_FINAL_ASSEMBLY);
@@ -66,8 +67,10 @@ void petscMatVecMult(double* matrix,int M, int N, double* vectorx, double* vecto
 
         VecGetArray(y,&temp);
 
-        for(i=0;i<N;i++)
-                vectory[i]=temp[i];
+       for(i=0;i<M;i++)
+                vectory[i]=(double) temp[i];
+
+	VecRestoreArray(y,&temp);
 
 	VecDestroy(&x);
 	VecDestroy(&y);
@@ -177,8 +180,10 @@ void petscSolve(double* matrix,int N,double* rhs, double* x1){
 	ierr = VecGetArray(x,&temp);
 
 	for(i=0;i<N;i++)
-		x1[i]=temp[i];
+		x1[i]=(double) temp[i];
 
+
+	ierr = VecRestoreArray(x,&temp);
 
 	VecDestroy(&x);
 	VecDestroy(&b);

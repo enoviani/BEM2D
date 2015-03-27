@@ -229,12 +229,14 @@ int main(){
 	int i;
 	petscInit();
 	int N[4]={50,100,200,400};
+
 	for(i=0;i<4;i++)
 		printf("test_peanutDN:\t n=%i\terr=%e\n",N[i],test_peanutDN(N[i]));
 	for(i=0;i<4;i++)
 		printf("test_peanutND:\t n=%i\terr=%e\n",N[i],test_peanutND(N[i]));
 	for(i=0;i<4;i++)
 		printf("test_peanutBulk:\t n=%i\terr=%e\n",N[i],test_peanutBulk(N[i]));
+
 	petscEnd();
 	return 0;
 }
