@@ -12,7 +12,9 @@ void petscMatVecMult(double* matrix,int M, int N, double* vectorx, double* vecto
 	int i;
 
 	// create vector x, size (N,1)//
-	
+
+
+
 	VecCreate(PETSC_COMM_WORLD,&x);
 	VecSetSizes(x,PETSC_DECIDE,n);
 	VecSetFromOptions(x);
@@ -38,8 +40,8 @@ void petscMatVecMult(double* matrix,int M, int N, double* vectorx, double* vecto
 	MatSetUp(A);
 
 	//
-//	   Assemble matrix
-	  //
+	//	   Assemble matrix
+	//
 
 	int* idx=malloc(N*sizeof(int));
 
@@ -57,7 +59,6 @@ void petscMatVecMult(double* matrix,int M, int N, double* vectorx, double* vecto
 	MatSetValues(A,M,idy,N,idx,matrix,INSERT_VALUES);
 	MatAssemblyBegin(A,MAT_FINAL_ASSEMBLY);
 	MatAssemblyEnd(A,MAT_FINAL_ASSEMBLY);
-	
 
 	MatMult(A,x,y);
 

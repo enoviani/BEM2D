@@ -151,6 +151,77 @@ double test_peanutND(int N)
 	return err;
 }
 
+double test_peanutBulk(int N)
+{
+
+	// geometric data of the boundary
+	double *X,*Y,*xn,*yn,*nx,*ny,*H;
+
+
+	// points inside the bulk
+	
+	double Xb[4]={2,2,-2,-2};
+	double Yb[4]={2,-2,2,-2};
+
+	int i,j,k,jp;
+
+	createPeanut(N,&X,&Y,&xn,&yn,&nx,&ny,&H);
+
+	// Here, we build the influence matrices M and P
+
+	double* M;
+	double* P;
+
+	M=malloc(4*N*sizeof(double));
+	P=malloc(4*N*sizeof(double));
+
+	for(i=0;i<4;i++){
+		for(j=0;j<N;j++){
+			k=j+i*N;
+			jp=mod(j+1,N);
+			GreenBound(Xb[i],Yb[i],X[j],Y[j],X[jp],Y[jp],nx[j],ny[j],M+k,P+k);
+		}
+	}
+
+	// Prepare the Dirichlet and Neumann data, compute the exact solution.
+
+	double *neumex,*diriex;
+	double *Pneumex,*Mdiriex;
+	double *solex,*sol;
+
+	Mdiriex=malloc(4*sizeof(double));
+	diriex=malloc(N*sizeof(double));
+	Pneumex=malloc(4*sizeof(double));
+	neumex=malloc(N*sizeof(double));
+	solex=malloc(4*sizeof(double));
+	sol=malloc(4*sizeof(double));
+
+	for(i=0;i<N;i++){
+		diriex[i]=(1/(2*M_PI))*log(1.0/sqrt(xn[i]*xn[i]+yn[i]*yn[i]));
+		neumex[i]=-(1/(2*M_PI))*(1.0/(xn[i]*xn[i]+yn[i]*yn[i]))*(xn[i]*nx[i]+yn[i]*ny[i]);
+	}
+
+	for(i=0;i<4;i++)
+		solex[i]=(1/(2*M_PI))*log(1.0/sqrt(Xb[i]*Xb[i]+Yb[i]*Yb[i]));
+
+	// We compute sol=-P*neum +M*diri
+	
+	petscMatVecMult(P,4,N,neumex,Pneumex);
+	petscMatVecMult(M,4,N,diriex,Mdiriex);
+
+	for(i=0;i<4;i++)
+		sol[i]=-Pneumex[i]+Mdiriex[i];
+
+	double err=0;
+	for(i=0;i<4;i++){
+		err=err+pow(solex[i]-sol[i],2);
+	}
+	
+	err=err/N;
+	err=sqrt(err);
+	return err;
+}
+
 
 // Running all the test and print the info
 
@@ -162,6 +233,8 @@ int main(){
 		printf("test_peanutDN:\t n=%i\terr=%e\n",N[i],test_peanutDN(N[i]));
 	for(i=0;i<4;i++)
 		printf("test_peanutND:\t n=%i\terr=%e\n",N[i],test_peanutND(N[i]));
+	for(i=0;i<4;i++)
+		printf("test_peanutBulk:\t n=%i\terr=%e\n",N[i],test_peanutBulk(N[i]));
 	petscEnd();
 	return 0;
 }
