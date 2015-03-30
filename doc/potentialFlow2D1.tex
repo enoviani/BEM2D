@@ -223,7 +223,7 @@ when $(x',y')\in\mathbb{R}^2\setminus\overline{\Omega_0}$, not in boundary as
 \begin{align}
  -u_0 \integ{\Gamma_0}{}{n_x G_{x',y'}(x,y) \, ds}-
 \integ{\Gamma_0}{}{\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds}+\psi_{x',y'}=0\\
-\psi_{x',y'}(x,y)=\integ{\Gamma_0}{}{u_0 n_x G_{x',y'}(x,y) +\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds} \label{BIform}
+\psi_{x',y'}(x,y)=-\integ{\Gamma_0}{}{-u_0 n_x G_{x',y'}(x,y) -\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds} \label{BIform}
 \end{align}
 We call equation~\eqref{BIform} as Boundary Integral Formulation in $(x',y')\in \mathbb{R}^2\setminus\overline{\Omega_0}$.
 
@@ -460,5 +460,40 @@ with
 \subsection{Solving Boundary Integral Formulation in Domain}
 
 We have to solve boundary integral formulation in domain $(x',y')\in \Omega$ as in equation~\eqref{BIform}. 
+\begin{equation}
+ \psi_{x',y'}(x,y)=-\integ{\Gamma_0}{}{(-u_0 n_x)G_{x',y'}(x,y)} + \integ{\Gamma_0}{}{\psi\nabla G_{x',y'}(x,y)\cdot \vec{n}} \label{BIform1}
+\end{equation}
+If we call $-u_0 n_x$ and $\psi$ respectively with Neum and Diri, we can write \ref{BIform1} as
+\begin{equation}
+ \psi_{x',y'}(x,y)=-\integ{\Gamma_0}{}{\text{Neum}G_{x',y'}(x,y)} + \integ{\Gamma_0}{}{\text{Diri}\nabla G_{x',y'}(x,y)\cdot \vec{n}}
+\end{equation}
+
+For solving Boundary Integral Formulation inside the domain, in order to get the potential flow, we wish to obtain $u=\nabla\psi$.
+\begin{equation}
+ \nabla\psi=\left(\begin{array}{c}
+      \partial_{x'}\psi \\
+      \partial_{y'}\psi
+    \end{array}\right)
+\end{equation}
+ We have to compute $\partial_{x'}\psi$.
+\begin{align}
+ \partial_{x'}\psi(x',y')&=\partial_{x'}\left(-\integ{\Gamma_0}{}{\text{Neum}G_{x',y'}(x,y)} + \integ{\Gamma_0}{}{\text{Diri}\nabla G_{x',y'}(x,y)\cdot \vec{n}} \right)\\
+&=  \underbrace{-\integ{\Gamma_0}{}{\text{Neum} \left(\partial_{x'}G_{x',y'}(x,y)\right)}}_\text{1}  +  
+\underbrace{\integ{\Gamma_0}{}{\text{Diri}\left(\partial_{x'}\nabla G_{x',y'}(x,y)\cdot \vec{n}\right)}}_\text{2} 
+\end{align}
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[height = 6cm]{positionOfPoints.png}
+\end{center}
+ \caption{Points in Domain}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[height = 10cm]{changeAxis.png}
+\end{center}
+ \caption{Change the axis and ordinat}
+\end{figure}
+
 
 \end{document}
