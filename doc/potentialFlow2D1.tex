@@ -175,7 +175,7 @@ In order to obtain the uniqueness, we will have to set the constant?, which will
 \section{The Boundary Integral Equation}
 
 Let $G_{x',y'} (x,y)$ be the Green function of Laplacian problem 2D.
-\begin{equation}
+\begin{equation} \label{GreenFunction}
  G_{x',y'}(x,y)=\dfrac{1}{2 \pi} \, \ln(\sqrt{(x-x')^2+(y-y')^2})
 \end{equation}
 $G$ has some properties:
@@ -481,19 +481,48 @@ For solving Boundary Integral Formulation inside the domain, in order to get the
 &=  \underbrace{-\integ{\Gamma_0}{}{\text{Neum} \left(\partial_{x'}G_{x',y'}(x,y)\right)}}_\text{1}  +  
 \underbrace{\integ{\Gamma_0}{}{\text{Diri}\left(\partial_{x'}\nabla G_{x',y'}(x,y)\cdot \vec{n}\right)}}_\text{2} 
 \end{align}
+
+\begin{enumerate}
+ \item We have to find the value of $-\integ{\Gamma_0}{}{\partial_{x'} G_{x',y'} \text{Neum}}$
+
+We use Green function as in equation \ref{GreenFunction}. We obtain its derivative to $x'$ as follow:
+\begin{equation}
+ \partial_{x'} G_{x',y'}(x,y)=-\frac{1}{2}\frac{x-x'}{(x-x')^2+(y-y')^2}
+\end{equation}
+We can see point $(x',y')$ in coordinate $(x,y=u)$ in figure \ref{PointsDomain}. we also can turn the axis and ordinat in such a convenient way as we see in figure \ref{turnAxis}. 
 \begin{figure}[!htbp]
 \begin{center}
 \includegraphics[height = 6cm]{positionOfPoints.png}
 \end{center}
- \caption{Points in Domain}
+ \caption{Points in Domain}\label{PointsDomain}
 \end{figure}
 
 \begin{figure}[!htbp]
 \begin{center}
 \includegraphics[height = 10cm]{changeAxis.png}
 \end{center}
- \caption{Change the axis and ordinat}
+ \caption{Change the axis and ordinat}\label{turnAxis}
 \end{figure}
+in $\eta\nu$ coordinate, along the integration line, we get:
+\begin{align}
+ x-x'&=\eta=r \cos \theta=H \quad\text{,} r=H\sec\theta\\
+y-y'&=\nu= r\sin \theta\\
+\frac{\eta}{\nu}= \tan\theta\\
+\nu=\eta \tan \theta=H\tan \theta\\
+\d \nu=H \sec^2\theta \d \theta
+\end{align}
+Let us compute the integral
+\begin{align}
+ -\integ{\Gamma_0}{}{\partial_{x'} G_{x',y'} \text{Neum}}&=-\sum\limits_{i=1}^N  \integ{S_i}{}{\partial_{x'} G_{x',y'} \text{Neum} \, dS}\\
+&=-\sum\limits_{i=1}^N \text{Neum} \integ{\nu_{i-\frac{1}{2}}}{\nu_{i+\frac{1}{2}}}{\partial_{x'} G_{x',y'} (H,\nu) \, d\nu}\\
+&=-\sum\limits_{i=1}^N \frac{-\text{Neum}}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\frac{H}{\left( H\sec\theta\right)^2 }H \sec^2\theta \, d\theta}\\
+&=-\sum\limits_{i=1}^N \frac{-\text{Neum}}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\, d\theta}\\
+&=\sum\limits_{i=1}^N \frac{\text{Neum}}{2\pi} \left( \theta_{i+\frac{1}{2}}- \theta_{i-\frac{1}{2}} \right)
+\end{align}
+
+\item We have to compute $\integ{\Gamma_0}{}{\partial_{x'}\nabla G_{x',y'} \cdot n \text{diri}}$
+\end{enumerate}
+
 
 
 \end{document}
