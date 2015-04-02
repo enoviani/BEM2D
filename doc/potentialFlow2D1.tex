@@ -601,7 +601,7 @@ Using this equation, we obtain:
 =&-\sum\limits_{i=1}^N \text{Neum}_i \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\frac{r \sin\theta}{2\pi H \sec\theta} \, d\theta}\\
 =&-\sum\limits_{i=1}^N \frac{\text{Neum}_i }{2\pi H}\integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\sin\theta\cos\theta \, d\theta}\\
 =&-\frac{1}{2\pi H}\sum\limits_{i=1}^N \text{Neum}_i \left[ -\frac{1}{2} \cos^2\theta \right]_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}}\\
-=&\frac{1}{4\pi H}\sum\limits_{i=1}^N \text{Neum}_i \left(\cos^2\theta_{i+\frac{1}{2}}-\cos^2\theta_{i-\frac{1}{2}}\right)
+=&\frac{1}{4\pi H}\sum\limits_{i=1}^N \text{Neum}_i \left(\cos^2\theta_{i+\frac{1}{2}}-\cos^2\theta_{i-\frac{1}{2}}\right)\label{intPartialGy}
 \end{align}
 
 \item We have to compute $\integ{\Gamma_0}{}{\partial_{y'}\nabla G_{x',y'} \cdot n \text{diri}}$
@@ -612,10 +612,22 @@ We use equation \ref{NablaGn} to compute $\integ{\Gamma_0}{}{\partial_{y'}\nabla
 \end{equation}
 
 \begin{align}
- \integ{\Gamma_0}{}{\partial_{y'}\nabla G_{x',y'} \cdot n \text{diri}}=
+ \integ{\Gamma_0}{}{\partial_{y'}\nabla G_{x',y'} \cdot n \text{diri}}=\integ{\Gamma_0}{}{\text{diri}\frac{(x-x')(y-y')}{\pi \left( (x-x')^2+(y-y')^2\right)^2}}\\
+=&\frac{1}{\pi}\sum\limits_{i=1}^N \text{diri}_i \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\frac{r \cos\theta r \sin \theta}{\left(r^2 \right)^2} \, d\theta}\\
+=&\frac{1}{\pi}\sum\limits_{i=1}^N \text{diri}_i \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\frac{\cos\theta \sin \theta}{r^2} \, d\theta}\\
+=&\frac{1}{\pi}\sum\limits_{i=1}^N \text{diri}_i \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\frac{\cos\theta \sin \theta}{\left(\frac{H}{\cos\theta}\right)^2} \, d\theta}\\
+=& \frac{1}{\pi H^2}\sum\limits_{i=1}^N \text{diri}_i \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\cos^3\theta \sin \theta \, d\theta}\\
+=&-\frac{1}{4\pi H^2}\sum\limits_{i=1}^N \text{diri}_i \left[\cos^4\theta \right]_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}} \label{intPartialNablaGny}
 \end{align}
-
 \end{enumerate}
+
+Form equation \ref{intPartialGy} and \ref{intPartialNablaGny}, we get:
+\begin{align}
+ \partial_{y'} \psi(x',y')&=\frac{1}{4\pi H}\sum\limits_{i=1}^N \text{Neum}_i \left(\cos^2\theta_{i+\frac{1}{2}}-\cos^2\theta_{i-\frac{1}{2}}\right)
+ -\frac{1}{4\pi H^2}\sum\limits_{i=1}^N \text{diri}_i \left[\cos^4\theta \right]_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}}\\
+ &=\frac{1}{4\pi H}\left( \sum\limits_{i=1}^N \text{Neum}_i \left(\cos^2\theta_{i+\frac{1}{2}}-\cos^2\theta_{i-\frac{1}{2}}\right)- 
+ \frac{1}{H}\sum\limits_{i=1}^N \text{diri}_i \left( \cos^4\theta_{i+\frac{1}{2}}- \cos^4 \theta_{i-\frac{1}{2}} \right) \right)
+\end{align}
 
 
 
