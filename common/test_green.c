@@ -305,6 +305,8 @@ int main(){
 	for(i=0;i<4;i++)
 		printf("test_peanutND:\t n=%i\terr=%e\n",N[i],test_peanutND(N[i]));
 
+	// tests in the bulk
+
 	int M[5]={50,100,200,400,800};
 
 	for(i=0;i<5;i++)
