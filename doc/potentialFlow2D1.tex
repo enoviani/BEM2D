@@ -499,13 +499,13 @@ In order to compute $m_{ij}$, first we calcute the value of $\nabla G_{x_i,y_i}\
       -1 \\
       0
     \end{array}\right)\right)\\
-&=\frac{-\eta}{2\pi \left((\eta)^2+(\nu)^2 \right)}=\frac{-1}{2\pi} \frac{r\cos\theta}{r^2}=\frac{-1}{2\pi} \frac{\cos\theta}{r}\label{NablaGnRadial}
+&=\frac{-\eta}{2\pi \left((\eta)^2+(\nu)^2 \right)}\label{NablaGnRadial}
 \end{align}
 From equation \ref{NablaGnRadial}, we get
 \begin{align}
  m_{ij}&=\fpint{S_j}{}{\nabla G{x_i,y_i}\cdot n}\\
-&=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{-1}{2\pi} \frac{\cos\theta}{r} \, d\theta}\\
-&=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{-\cos\theta}{2\pi H\sec\theta}H \sec^2\theta \, d\theta}\\
+&=\fpint{\nu_{j-\frac{1}{2}}}{\nu_{j+\frac{1}{2}}}{-\frac{1}{2\pi} \frac{\eta}{\eta^2+\nu^2} \, d\nu}\\
+&=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{-H}{2\pi H^2\sec^2\theta}H \sec^2\theta \, d\theta}\\
 &=- \frac{1}{2\pi} \fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\, d\theta}\\
 &=-\frac{1}{2\pi}(\theta_{j+\frac{1}{2}}-\theta_{j-\frac{1}{2}})
 \end{align}
@@ -535,20 +535,20 @@ From equation \ref{NablaGnRadial}, we get
  As long as $G$ is a radial function, $\nabla G$ is also radial (radial vector). We obtain 
 \begin{align}
  m_{ij}&=\fpint{S_j}{}{\nabla G{x_i,y_i}\cdot n}\\
- &=\lim_{\varepsilon \to 0} \integ{-\frac{l_i}{2}}{-\varepsilon}{\nabla G{x_i,y_i}\cdot n (0,\nu)}+ \integ{\varepsilon}{\nu_{i+\frac{1}{2}}}{\nabla G{x_i,y_i}\cdot n (0,\nu)}\\
+ &=\lim_{\varepsilon \to 0} \integ{-\frac{l_i}{2}}{-\varepsilon}{\nabla G{x_i,y_i}\cdot n (0,\nu)\, d\nu}+ \integ{\varepsilon}{\frac{l_i}{2}}{\nabla G{x_i,y_i}\cdot n (0,\nu) \, d\nu}\\
  &=\lim_{\varepsilon \to 0} \integ{-\frac{l_i}{2}}{-\varepsilon}{\frac{1}{2\pi} \frac{1}{\eta^2+\nu^2} \left(\begin{array}{c}
-      \nu \\
-      \eta
+      \eta \\
+      \nu
     \end{array}\right) \left(\begin{array}{c}
       -1 \\
       0
-    \end{array}\right) (0,\nu)}+\integ{\varepsilon}{\nu_{i+\frac{1}{2}}}{\frac{1}{2\pi} \frac{1}{\eta^2+\nu^2} \left(\begin{array}{c}
-      \nu \\
-      \eta
+    \end{array}\right) (0,\nu) \, d\nu}+\integ{\varepsilon}{\frac{l_i}{2}}{\frac{1}{2\pi} \frac{1}{\eta^2+\nu^2} \left(\begin{array}{c}
+      \eta \\
+      \nu
     \end{array}\right) \left(\begin{array}{c}
       -1 \\
       0
-    \end{array}\right) (0,\nu)}\\
+    \end{array}\right) (0,\nu) \, d\nu}\\
 &=0
 \end{align}
  
@@ -587,31 +587,31 @@ For solving Boundary Integral Formulation inside the domain, in order to get the
  \nabla\psi=\left(\begin{array}{c}
       \partial_{x'}\psi \\
       \partial_{y'}\psi
-    \end{array}\right)
+    \end{array}\right) \label{nablaPsi}
 \end{equation}
 First, let we compute $\partial_{x'}\psi$ and $\partial_{y'}\psi$.
 \begin{align}
  \partial_{x'}\psi(x',y')&=\partial_{x'}\left(-\integ{\Gamma_0}{}{\text{Neum}G_{x',y'}(x,y)} + \integ{\Gamma_0}{}{\text{Diri}\nabla G_{x',y'}(x,y)\cdot \vec{n}} \right)\\
 &=  \underbrace{-\integ{\Gamma_0}{}{\text{Neum} \left(\partial_{x'}G_{x',y'}(x,y)\right)}}_\text{1}  +  
-\underbrace{\integ{\Gamma_0}{}{\text{Diri}\left(\partial_{x'}\nabla G_{x',y'}(x,y)\cdot \vec{n}\right)}}_\text{2} 
+\underbrace{\integ{\Gamma_0}{}{\text{Diri}\left(\partial_{x'}\nabla G_{x',y'}(x,y)\cdot \vec{n}\right)}}_\text{2}\label{partialxaPsi} 
 \end{align}
 \begin{align}
  \partial_{y'}\psi(x',y')&=  \underbrace{-\integ{\Gamma_0}{}{\text{Neum} \left(\partial_{y'}G_{x',y'}(x,y)\right)}}_\text{3}  +  
-\underbrace{\integ{\Gamma_0}{}{\text{Diri}\left(\partial_{y'}\nabla G_{x',y'}(x,y)\cdot \vec{n}\right)}}_\text{4} 
+\underbrace{\integ{\Gamma_0}{}{\text{Diri}\left(\partial_{y'}\nabla G_{x',y'}(x,y)\cdot \vec{n}\right)}}_\text{4} \label{partialyaPsi}
 \end{align}
 
 We use Green function as in equation \ref{GreenFunction}. We obtain:
 \begin{align}
- \partial_{x'} G_{x',y'}(x,y)=-\frac{1}{2}\frac{x-x'}{(x-x')^2+(y-y')^2}\\ \label{partialxaG}
-\partial_{y'} G_{x',y'}(x,y)=-\frac{1}{2}\frac{y-y'}{(x-x')^2+(y-y')^2} \\ \label{partialyaG}
+ \partial_{x'} G_{x',y'}(x,y)=-\frac{1}{2\pi}\frac{x-x'}{(x-x')^2+(y-y')^2}\\ \label{partialxaG}
+\partial_{y'} G_{x',y'}(x,y)=-\frac{1}{2\pi}\frac{y-y'}{(x-x')^2+(y-y')^2} \\ \label{partialyaG}
 \nabla G_{x',y'} \cdot n= \frac{1}{2\pi} \frac{(x-x')n_x+(y-y')n_y}{(x-x')^2+(y-y')^2}
 \end{align}
 \begin{align}
- \partial_{x'}\nabla G_{x',y'} \cdot n &=\frac{1}{2\pi} \frac{(-n_x)((x_x')^2+(y-y')^2)-(-2(x-x')(n_x(x-x')+n_y(y-y')))}{((x-x')^2+(y-y')^2)^2}\\
-&= -\frac{1}{2\pi}  \frac{(n_x)((x_x')^2+(y-y')^2)-(2(x-x')(n_x(x-x')+n_y(y-y')))}{((x-x')^2+(y-y')^2)^2} \label{partialxaNablaGn}
+ \partial_{x'}\nabla G_{x',y'} \cdot n &=\frac{1}{2\pi} \frac{(-n_x)((x-x')^2+(y-y')^2)-(-2(x-x')(n_x(x-x')+n_y(y-y')))}{((x-x')^2+(y-y')^2)^2}\\
+&= -\frac{1}{2\pi}  \frac{(n_x)((x-x')^2+(y-y')^2)-(2(x-x')(n_x(x-x')+n_y(y-y')))}{((x-x')^2+(y-y')^2)^2} \label{partialxaNablaGn}
 \end{align}
 \begin{align}
- \partial_{y'}\nabla G_{x',y'} \cdot n =-\frac{1}{2\pi}  \frac{(n_y)((x_x')^2+(y-y')^2)-(2(y-y')(n_x(x-x')+n_y(y-y')))}{((x-x')^2+(y-y')^2)^2}\label{partialyaNablaGn}
+ \partial_{y'}\nabla G_{x',y'} \cdot n =-\frac{1}{2\pi}  \frac{(n_y)((x-x')^2+(y-y')^2)-(2(y-y')(n_x(x-x')+n_y(y-y')))}{((x-x')^2+(y-y')^2)^2}\label{partialyaNablaGn}
 \end{align}
 
 We can see point $(x',y')$ in coordinate $(x,y=u)$ in figure \ref{PointsDomain}. we also can turn the axis and ordinat in such a convenient way as we see in figure \ref{turnAxis}. 
@@ -667,11 +667,11 @@ atau
 With using \ref{kesamaanJarak} at $x_i=x'$ and equation \ref{RotasixNu} , let us compute the integral
 \begin{align}
  -\integ{\Gamma_0}{}{\partial_{x'} G_{x',y'} \text{Neum}}&=-\sum\limits_{i=1}^N  \integ{S_i}{}{\partial_{x'} G_{x',y'} \text{Neum} \, dS}\\
-&=-\sum\limits_{i=1}^N \text{Neum} \integ{S_i}{}{-\frac{1}{2\pi}\frac{x-x'}{(x-x')^2+(y-y')^2}}\\
-&=-\sum\limits_{i=1}^N \text{Neum} \integ{\nu_{i-\frac{1}{2}}}{\nu_{i+\frac{1}{2}}}{-\frac{1}{2\pi} \frac{n_x\eta-n_y \nu}{\eta^2+\nu^2} \, d\nu}\\
-&=-\sum\limits_{i=1}^N -\frac{\text{Neum}}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\frac{H n_x-n_y r \sin\theta}{\left( H\sec\theta\right)^2 }H \sec^2\theta \, d\theta}\\
-&=-\sum\limits_{i=1}^N -\frac{\text{Neum}}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{n_x-n_y\tan\theta\, d\theta}\\
-&=-\sum\limits_{i=1}^N -\frac{\text{Neum}}{2\pi} \left( n_x(\theta_{i+\frac{1}{2}}- \theta_{i-\frac{1}{2}}) -n_y \left[\ln(\vert \cos\theta\vert )\right]_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}} \right)\label{intPartialG}
+&=-\sum\limits_{i=1}^N \text{Neum}_i \integ{S_i}{}{-\frac{1}{2\pi}\frac{x-x'}{(x-x')^2+(y-y')^2}}\\
+&=-\sum\limits_{i=1}^N \text{Neum}_i \integ{\nu_{i-\frac{1}{2}}}{\nu_{i+\frac{1}{2}}}{-\frac{1}{2\pi} \frac{n_x\eta-n_y \nu}{\eta^2+\nu^2} \, d\nu}\\
+&=-\sum\limits_{i=1}^N -\frac{\text{Neum}_i}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\frac{H n_x-n_y r \sin\theta}{\left( H\sec\theta\right)^2 }H \sec^2\theta \, d\theta}\\
+&=-\sum\limits_{i=1}^N -\frac{\text{Neum}_i}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{(n_x-n_y\tan\theta) \, d\theta}\\
+&=-\sum\limits_{i=1}^N -\frac{\text{Neum}_i}{2\pi} \left( n_x(\theta_{i+\frac{1}{2}}- \theta_{i-\frac{1}{2}}) -n_y \left[\ln(\vert \cos\theta\vert )\right]_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}} \right)\label{intPartialxaG}
 \end{align}
 
 \item We have to compute $\integ{\Gamma_0}{}{\partial_{x'}\nabla G_{x',y'} \cdot n \text{diri}}$
@@ -686,18 +686,21 @@ With using equation \ref{partialxaNablaGn} and \ref{RotasixNu}, we can write
  =& \sum\limits_{i=1}^N \text{diri}_i \integ{\nu_{i-\frac{1}{2}}}{\nu_{i+\frac{1}{2}}}{-\frac{1}{2\pi} \frac{(\eta^2+\nu^2)n_x-2(n_x\eta-n_y\nu)(\eta)}{(\eta^2+\nu^2)^2} \, d\nu}\\
 =&\sum\limits_{i=1}^N \text{diri}_i \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{-\frac{1}{2\pi} \frac{(H^2 \sec^2\theta)n_x-2(n_x H-n_y H \sec \theta \sin \theta)(H)}{H^4 \sec^4\theta} \, H \sec^2\theta d\theta}\\
 =&\sum\limits_{i=1}^N \text{diri}_i \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{-\frac{1}{2\pi} \left( \frac{n_x}{H}-\frac{2n_x}{H \sec^2\theta}+\frac{2n_y \sin \theta \cos\theta}{H} \right) \, d\theta}\\
-=&\sum\limits_{i=1}^N \text{diri}_i -\frac{1}{2\pi} \left(\frac{n_x}{H}\left((\theta)_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}}-(\frac{\sin2\theta}{2}){\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}} \right)+\frac{n_y}{H}(\sin^2\theta)_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}}\right)\label{intPartialNablaGn}
+=&\sum\limits_{i=1}^N \text{diri}_i -\frac{1}{2\pi} \left(\frac{n_x}{H} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\, d\theta}-
+ \frac{n_x}{H} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{2\cos^2\theta \, d\theta}+
+ \frac{n_y}{H} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{2\cos \theta \sin\theta, d\theta} \right)\\
+=&\sum\limits_{i=1}^N \text{diri}_i -\frac{1}{2\pi} \left(-\frac{n_x}{H}(\frac{1}{2}\sin2\theta)_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}}+\frac{n_y}{H}(\sin^2\theta)_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}}\right)\label{intPartialxaNablaGn}
 \end{align}
 
 \item We will calculate $-\integ{\Gamma_0}{}{\text{Neum} \left(\partial_{y'}G_{x',y'}(x,y)\right)}$
 We use \ref{partialyaG} and \ref{RotasixNu} to obtain:
 \begin{align}
  -\integ{\Gamma_0}{}{\partial_{y'} G_{x',y'} \text{Neum}}&=-\sum\limits_{i=1}^N  \integ{S_i}{}{\partial_{y'} G_{x',y'} \text{Neum} \, dS}\\
-&=-\sum\limits_{i=1}^N \text{Neum} \integ{S_i}{}{-\frac{1}{2\pi}\frac{y-y'}{(x-x')^2+(y-y')^2}}\\
-&=-\sum\limits_{i=1}^N \text{Neum} \integ{\nu_{i-\frac{1}{2}}}{\nu_{i+\frac{1}{2}}}{-\frac{1}{2\pi} \frac{n_y\eta+n_x \nu}{\eta^2+\nu^2} \, d\nu}\\
-&=-\sum\limits_{i=1}^N -\frac{\text{Neum}}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\frac{H n_y+n_x r \sin\theta}{\left( H\sec\theta\right)^2 }H \sec^2\theta \, d\theta}\\
-&=-\sum\limits_{i=1}^N -\frac{\text{Neum}}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{n_y+n_x\tan\theta\, d\theta}\\
-&=-\sum\limits_{i=1}^N -\frac{\text{Neum}}{2\pi} \left( n_y(\theta_{i+\frac{1}{2}}-\theta_{i-\frac{1}{2}}) +n_x \left[\ln(\vert \cos\theta\vert )\right]_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}} \right)\label{intPartialyaG}
+&=-\sum\limits_{i=1}^N \text{Neum}_i \integ{S_i}{}{-\frac{1}{2\pi}\frac{y-y'}{(x-x')^2+(y-y')^2}}\\
+&=-\sum\limits_{i=1}^N \text{Neum}_i \integ{\nu_{i-\frac{1}{2}}}{\nu_{i+\frac{1}{2}}}{-\frac{1}{2\pi} \frac{n_y\eta+n_x \nu}{\eta^2+\nu^2} \, d\nu}\\
+&=-\sum\limits_{i=1}^N -\frac{\text{Neum}_i}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\frac{H n_y+n_x r \sin\theta}{\left( H\sec\theta\right)^2 }H \sec^2\theta \, d\theta}\\
+&=-\sum\limits_{i=1}^N -\frac{\text{Neum}_i}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{n_y+n_x\tan\theta\, d\theta}\\
+&=-\sum\limits_{i=1}^N -\frac{\text{Neum}_i}{2\pi} \left( n_y(\theta_{i+\frac{1}{2}}-\theta_{i-\frac{1}{2}}) +n_x \left[\ln(\vert \cos\theta\vert )\right]_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}} \right)\label{intPartialyaG}
 \end{align}
 
 \item We will find the value of $\integ{\Gamma_0}{}{\text{Diri}\left(\partial_{y'}\nabla G_{x',y'}(x,y)\cdot \vec{n}\right)}$
@@ -711,9 +714,15 @@ With using equation \ref{partialyaNablaGn} and \ref{RotasixNu}, we can write
 &=\sum\limits_{i=1}^N \text{diri}_i \integ{\nu_{i-\frac{1}{2}}}{\nu_{i+\frac{1}{2}}}{-\frac{1}{2\pi} \frac{(\eta^2+\nu^2)n_y-2(n_y\eta+n_x\nu)(\eta)}{(\eta^2+\nu^2)^2} \, d\nu}\\
 &=\sum\limits_{i=1}^N \text{diri}_i \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{-\frac{1}{2\pi} \frac{\left((H^2 \sec^2\theta)n_y-2(n_y H+n_x H \sec \theta \sin \theta)(H)\right)H \sec^2\theta}{H^4 \sec^4\theta} \, d\theta}\\
 &=\sum\limits_{i=1}^N \text{diri}_i \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{-\frac{1}{2\pi} \left( \frac{n_y}{H}-\frac{2n_y}{H \sec^2\theta}+\frac{2n_x \sin \theta \cos\theta}{H} \right) \, d\theta}\\
-&=\sum\limits_{i=1}^N \text{diri}_i -\frac{1}{2\pi} \left(\frac{n_y}{2H}\sin2\theta_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}}+\frac{n_x}{H}(\sin^\theta)_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}}\right)\label{intPartialyaNablaGn}
+&=\sum\limits_{i=1}^N \text{diri}_i -\frac{1}{2\pi} \left(\frac{n_y}{H} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\, d\theta}-
+ \frac{n_y}{H} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{2\cos^2\theta \, d\theta}+
+ \frac{n_x}{H} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{2\cos \theta \sin\theta, d\theta} \right)\\
+&=\sum\limits_{i=1}^N \text{diri}_i -\frac{1}{2\pi} \left(-\frac{n_y}{2H}\left(\sin2\theta\right)_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}}+\frac{n_x}{H}(\sin^2\theta)_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}}\right)\label{intPartialyaNablaGn}
 \end{align}
 
 \end{enumerate}
+
+Now, we can evaluate the value of velocity potential $u=\nabla\psi$ with using \ref{intPartialxaG}, \ref{intPartialxaNablaGn}, \ref{intPartialyaG} and \ref{intPartialyaNablaGn} and substitute them to equation
+\ref{partialxaPsi}, \ref{partialyaPsi} and \ref{nablaPsi}.
 
 \end{document}
