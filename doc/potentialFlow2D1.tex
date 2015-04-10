@@ -356,13 +356,13 @@ We will compute matrices $P=(p_{i,j})=\integ{S_j}{}{G_{x_i,y_i}}$ and $M=(m_{i,j
 Let we see the point $(x_i,y_i)$ towards the other points in partition, such in figure \ref{PointsObstacle}.
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[height = 6cm]{positionOfPoints1.png}
+\includegraphics[height = 6cm]{positionOfPoints.png}
 \end{center}
  \caption{Points in obstacle}\label{PointsObstacle}
 \end{figure}
 
 Since $\nabla G_{x_i,y_i}$ and $G_{x_i,y_i}$ are radial functions, we can turn the axis in such a way more convenient to examine. 
-In figure \ref{turnAxis1} we change the coordinate $xu$ with $\eta \nu$. Let we say $H=x_i-x_{j-\frac{1}{2}}$ and $\theta$ is the angle that formed by $r$ and $\nu$.
+In figure \ref{turnAxis1} we change the coordinate $xu$ with $\eta \nu$. Coordinate $\eta \nu$ formed by rotation $xy$ coordinate through $\alpha$. 
 \begin{figure}[!htbp]
 \begin{center}
 \includegraphics[height = 10cm]{changeAxis1.png}
@@ -370,11 +370,67 @@ In figure \ref{turnAxis1} we change the coordinate $xu$ with $\eta \nu$. Let we 
  \caption{Change the axis and ordinat}\label{turnAxis1}
 \end{figure}
 
-In $\eta \nu$ coordinate, we can write Green function $G$ as
+In new reference frame, We can write $\eta \nu$ as:
+\begin{align}
+ \left(\begin{array}{c}
+     \eta\\
+      \nu 
+    \end{array}\right)=& \left( \begin{array}{cc} \cos \alpha & -\sin \alpha \\
+           \sin \alpha & \cos \alpha \end{array} \right)
+ \left(\begin{array}{c}
+     x-x' \\
+     y-y'
+    \end{array}\right)\\
+=& R(\alpha)\left(\begin{array}{c}
+     x-x' \\
+     y-y'
+    \end{array}\right)
+\end{align}
+
+\begin{align}
+  \eta&=\cos\alpha (x'-x)- \sin \alpha (y-y')\\
+\nu&=\sin \alpha(x'-x)+\cos \alpha (y-y')\\
+\eta^2+\nu^2=&\left(\begin{array}{c}
+     \nu \\
+      \eta
+    \end{array}\right) \cdot \left(\begin{array}{c}
+     \nu \\
+      \eta
+    \end{array}\right)=\left(\begin{array}{c}
+     \nu \\
+      \eta
+    \end{array}\right)^t \left(\begin{array}{c}
+     \nu \\
+      \eta
+    \end{array}\right)\\
+=&\left(R(\alpha)\left(\begin{array}{c}
+     x-x_i \\
+     y-y_i
+    \end{array}\right)\right)^t \left(R(\alpha)\left(\begin{array}{c}
+     x-x_i \\
+     y-y_i
+    \end{array}\right)\right)\\
+=& \left(\begin{array}{c}
+     x-x_i \\
+     y-y_i
+    \end{array}\right)^t R^t(\alpha)R(\alpha)\left(\begin{array}{c}
+     x-x_i \\
+     y-y_i
+    \end{array}\right)\\
+=&\left(\begin{array}{c}
+     x-x_i \\
+     y-y_i
+    \end{array}\right)^t \left(\begin{array}{c}
+     x-x_i \\
+     y-y_i
+    \end{array}\right)=(x-x_i)^2+(y-y_i)^2 \label{kesamaanJarak}
+\end{align}
+
+In $\eta \nu$ coordinate, we can use \ref{kesamaanJarak} to write Green function $G$ as
 \begin{equation}
-  G_{x_i,y_i}(\eta,\nu)=\frac{1}{2\pi} \ln\left(\sqrt{\eta^2 + \nu^2}\right)
+  G_{x_i,y_i}(x,y)=\tilde{G}(\eta,\nu)=\frac{1}{2\pi} \ln\left(\sqrt{\eta^2 + \nu^2}\right)
 \end{equation}
-we can also write $\eta$ and $\nu$ in radial coordinates as follows:
+we can also write $\eta$ and $\nu$ in radial coordinates. Let we say $H=\nu_i-\nu_{j-\frac{1}{2}}$ and $\theta$ is the angle that formed by $r$ and $\nu$. 
 \begin{align}
  \eta=r \cos\theta=H\\
 \nu=r \sin\theta\\
@@ -386,31 +442,70 @@ along the integration line, $\eta=H$.
 \end{equation}
 With using these values, we can get
 \begin{align}
- p_{ij}&=\fpint{S_j}{}{G_{x_i,y_i}}=\fpint{\nu_{j-\frac{1}{2}}}{\nu_{j+\frac{1}{2}}}{G_{x_i,y_i}(H, \nu) \, d\theta}\\
+ p_{ij}&=\fpint{S_j}{}{G_{x_i,y_i}}=\fpint{S_j}{}{\tilde{G}(\eta,\nu) \, d\nu}=\fpint{\nu_{j-\frac{1}{2}}}{\nu_{j+\frac{1}{2}}}{\frac{1}{2\pi}\ln\left(\sqrt{\eta^2 + \nu^2}\right) \, d\nu}\\
 &=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{1}{2\pi} 
-\left( \ln(H\sec \theta) H \sec^2\theta \right)  \, d\theta}\\
+\left( \ln(r) H \sec^2\theta \right)  \, d\theta}\\
 &=\frac{H}{2\pi} \fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\ln(H\sec\theta) H \sec^2\theta \mathrm{d}\theta}\\
 &=\frac{H}{2\pi}\left [ \tan \theta \ln (H\sec\theta)+\theta-\tan\theta \right ]_{\theta_{j-\frac{1}{2}}}^{\theta_{j+\frac{1}{2}}}
 \end{align}
+
+In order to compute $m_{ij}$, first we calcute the value of $\nabla G_{x_i,y_i}\cdot n$.
 \begin{align}
- m_{ij}&=\fpint{S_j}{}{\nabla G{x_i,y_i}(H,\nu)\cdot n}\\
- &=\fpint{S_j}{}{\frac{1}{2\pi} \left( \begin{array}{c}
-      \frac{2\eta}{2 \sqrt{\eta^2 + \nu^2} }\frac{1}{\sqrt{\eta^2 + \nu^2}} \\
-      \frac{2\nu}{2 \sqrt{\eta^2 + \nu^2}} \frac{1}{\sqrt{\eta^2 + \nu^2}}
-    \end {array} \right) \cdot n }=
-        \fpint{S_j}{}{ \frac{1}{2\pi} \frac{1}{\eta^2 + \nu^2} \left(\begin{array}{c}
-      \nu \\
-      \eta
-    \end{array}\right) \cdot n \, d\nu}\\
-&=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{1}{2\pi} \frac{1}{r^2} \left(\begin{array}{c}
-      r \cos\theta \\
-      r \sin \theta
-    \end{array}\right)\cdot\left(\begin{array}{c}
+ \nabla G_{x_i,y_i}\cdot n&=\left(\begin{array}{c}
+      \partial_x G_{x_i,y_i}\\
+      \partial_y G_{x_i,y_i}
+    \end{array}\right) \cdot \left(\begin{array}{c}
+      n_x \\
+      n_y
+    \end{array}\right)\\
+&=\left(\begin{array}{c}
+      \frac{1}{2\pi} \frac{x-x_i}{(x-x_i)^2+(y-y_i)^2} \\
+      \frac{1}{2\pi} \frac{y-y_i}{(x-x_i)^2+(y-y_i)^2}
+    \end{array}\right) \cdot \left(\begin{array}{c}
+      n_x \\
+      n_y
+    \end{array}\right)\\
+&= \frac{1}{2\pi \left((x-x_i)^2+(y-y_i)^2 \right)}\left(\begin{array}{c}
+     x-x_i \\
+     y-y_i
+    \end{array}\right)\cdot \left(\begin{array}{c}
+      n_x \\
+      n_y
+    \end{array}\right)\\
+                        &= \frac{1}{2\pi \left((x-x_i)^2+(y-y_i)^2 \right)}\left(\begin{array}{c}
+     x-x_i \\
+     y-y_i
+    \end{array}\right)\cdot \vec{n}\\
+&=\frac{1}{2\pi \left((\eta)^2+(\nu)^2 \right)} \left(\left(R^{-1}(\alpha)\left(\begin{array}{c}
+     \eta \\
+     \nu
+    \end{array}\right)\right)\cdot \vec{n}\right)\\
+=& \frac{1}{2\pi \left((\eta)^2+(\nu)^2 \right)} \left(\left(R(-\alpha)\left(\begin{array}{c}
+     \eta \\
+     \nu
+    \end{array}\right)\right)\cdot \vec{n}\right)\\
+=&\frac{1}{2\pi \left((\eta)^2+(\nu)^2 \right)}\left(\left(\begin{array}{c}
+     \eta \\
+     \nu
+    \end{array}\right)\cdot R^{t}(-\alpha) \vec{n}\right)\\
+&=\frac{1}{2\pi \left((\eta)^2+(\nu)^2 \right)} \left( \left(\begin{array}{c}
+     \eta \\
+     \nu
+    \end{array} \right) \cdot R(\alpha) \vec{n}\right)\\
+=&\frac{1}{2\pi \left((\eta)^2+(\nu)^2 \right)} \left(\left(\begin{array}{c}
+     \eta \\
+     \nu
+    \end{array}\right) \cdot \left(\begin{array}{c}
       -1 \\
       0
-    \end{array}\right)H \sec^2\theta \, d\theta}\\
-&=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{-\cos\theta}{2\pi r}H \sec^2\theta \, d\theta}\\
-&=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{1}{2\pi H\sec^2\theta}H \sec^2\theta \, d\theta}\\
+    \end{array}\right)\right)\\
+&=\frac{-\eta}{2\pi \left((\eta)^2+(\nu)^2 \right)}=\frac{-1}{2\pi} \frac{r\cos\theta}{r^2}=\frac{-1}{2\pi} \frac{\cos\theta}{r}\label{NablaGnRadial}
+\end{align}
+From equation \ref{NablaGnRadial}, we get
+\begin{align}
+ m_{ij}&=\fpint{S_j}{}{\nabla G{x_i,y_i}\cdot n}\\
+&=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{-1}{2\pi} \frac{\cos\theta}{r} \, d\theta}\\
+&=\fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\frac{-\cos\theta}{2\pi H\sec\theta}H \sec^2\theta \, d\theta}\\
 &=- \frac{1}{2\pi} \fpint{\theta_{j-\frac{1}{2}}}{\theta_{j+\frac{1}{2}}}{\, d\theta}\\
 &=-\frac{1}{2\pi}(\theta_{j+\frac{1}{2}}-\theta_{j-\frac{1}{2}})
 \end{align}
@@ -494,28 +589,33 @@ For solving Boundary Integral Formulation inside the domain, in order to get the
       \partial_{y'}\psi
     \end{array}\right)
 \end{equation}
-First, let we compute $\partial_{x'}\psi$.
+First, let we compute $\partial_{x'}\psi$ and $\partial_{y'}\psi$.
 \begin{align}
  \partial_{x'}\psi(x',y')&=\partial_{x'}\left(-\integ{\Gamma_0}{}{\text{Neum}G_{x',y'}(x,y)} + \integ{\Gamma_0}{}{\text{Diri}\nabla G_{x',y'}(x,y)\cdot \vec{n}} \right)\\
 &=  \underbrace{-\integ{\Gamma_0}{}{\text{Neum} \left(\partial_{x'}G_{x',y'}(x,y)\right)}}_\text{1}  +  
 \underbrace{\integ{\Gamma_0}{}{\text{Diri}\left(\partial_{x'}\nabla G_{x',y'}(x,y)\cdot \vec{n}\right)}}_\text{2} 
 \end{align}
+\begin{align}
+ \partial_{y'}\psi(x',y')&=  \underbrace{-\integ{\Gamma_0}{}{\text{Neum} \left(\partial_{y'}G_{x',y'}(x,y)\right)}}_\text{3}  +  
+\underbrace{\integ{\Gamma_0}{}{\text{Diri}\left(\partial_{y'}\nabla G_{x',y'}(x,y)\cdot \vec{n}\right)}}_\text{4} 
+\end{align}
 
-\begin{enumerate}
- \item We have to find the value of $-\integ{\Gamma_0}{}{\partial_{x'} G_{x',y'} \text{Neum}}$
+We use Green function as in equation \ref{GreenFunction}. We obtain:
+\begin{align}
+ \partial_{x'} G_{x',y'}(x,y)=-\frac{1}{2}\frac{x-x'}{(x-x')^2+(y-y')^2}\\
+\partial_{y'} G_{x',y'}(x,y)=-\frac{1}{2}\frac{y-y'}{(x-x')^2+(y-y')^2} \\
+\nabla G_{x',y'} \cdot n= \frac{1}{2\pi} \frac{(x-x')n_x+(y-y')n_y}{(x-x')^2+(y-y')^2}\\
+\partial_{x'}\nabla G_{x',y'} \cdot n=
 
-We use Green function as in equation \ref{GreenFunction}. We obtain its derivative to $x'$ as follow:
-\begin{equation}
- \partial_{x'} G_{x',y'}(x,y)=\frac{1}{2}\frac{x-x'}{(x-x')^2+(y-y')^2}
-\end{equation}
+
+\end{align}
 We can see point $(x',y')$ in coordinate $(x,y=u)$ in figure \ref{PointsDomain}. we also can turn the axis and ordinat in such a convenient way as we see in figure \ref{turnAxis}. 
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[height = 6cm]{positionOfPoints.png}
+\includegraphics[height = 6cm]{positionOfPoints1.png}
 \end{center}
  \caption{Points in Domain}\label{PointsDomain}
 \end{figure}
-
 \begin{figure}[!htbp]
 \begin{center}
 \includegraphics[height = 10cm]{changeAxis.png}
@@ -524,19 +624,52 @@ We can see point $(x',y')$ in coordinate $(x,y=u)$ in figure \ref{PointsDomain}.
 \end{figure}
 in $\eta\nu$ coordinate, along the integration line, we get:
 \begin{align}
- x-x'=\eta=r \cos \theta=H \quad\text{,} r=H\sec\theta\\
-y-y'=\nu= r\sin \theta\\
+ \eta=r \cos \theta=H\text{,}  \quad r=H\sec\theta\\
+\nu= r\sin \theta\\
 \frac{\eta}{\nu}= \tan\theta\\
 \nu=\eta \tan \theta=H\tan \theta\\
-\d \nu=H \sec^2\theta \d \theta
+d\nu=H \sec^2\theta d\theta
 \end{align}
-Let us compute the integral
+We can also write every point in  $\eta\nu$ coordinate as rotation of $xy$.
+\begin{equation}
+\left(\begin{array}{c}
+      x-x' \\
+      y-y'
+    \end{array}\right)=\left(\begin{array}{cc}
+      n_x & -n_y \\
+      n_y & n_x
+    \end{array}\right)\left(\begin{array}{c}
+      \eta\\
+      \nu
+    \end{array}\right) \label{RotasixNu}
+\end{equation}
+atau
+\begin{equation}
+\left(\begin{array}{c}
+    \eta   \\
+     \nu 
+    \end{array}\right)=\left(\begin{array}{cc}
+      n_x & n_y \\
+      -n_y & n_x
+    \end{array}\right)\left(\begin{array}{c}
+      x-x'\\
+     y-y'
+    \end{array}\right) 
+\end{equation}
+
+\begin{enumerate}
+ \item We have to find the value of $-\integ{\Gamma_0}{}{\partial_{x'} G_{x',y'} \text{Neum}}$
+
+
+With using \ref{kesamaanJarak} at $x_i=x'$ and equation \ref{RotasixNu} , let us compute the integral
 \begin{align}
  -\integ{\Gamma_0}{}{\partial_{x'} G_{x',y'} \text{Neum}}&=-\sum\limits_{i=1}^N  \integ{S_i}{}{\partial_{x'} G_{x',y'} \text{Neum} \, dS}\\
-&=-\sum\limits_{i=1}^N \text{Neum} \integ{\nu_{i-\frac{1}{2}}}{\nu_{i+\frac{1}{2}}}{\partial_{x'} G_{x',y'} (H,\nu) \, d\nu}\\
-&=-\sum\limits_{i=1}^N \frac{\text{Neum}}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\frac{H}{\left( H\sec\theta\right)^2 }H \sec^2\theta \, d\theta}\\
-&=-\sum\limits_{i=1}^N \frac{\text{Neum}}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\, d\theta}\\
-&=-\sum\limits_{i=1}^N \frac{\text{Neum}}{2\pi} \left( \theta_{i+\frac{1}{2}}- \theta_{i-\frac{1}{2}} \right)\label{intPartialG}
+&=-\sum\limits_{i=1}^N \text{Neum} \integ{S_i}{}{-\frac{1}{2\pi}\frac{x-x'}{(x-x')^2+(y-y')^2}}\\
+&=-\sum\limits_{i=1}^N \text{Neum} \integ{\nu_{i-\frac{1}{2}}}{\nu_{i+\frac{1}{2}}}{-\frac{1}{2\pi} \frac{n_x\eta-n_y \nu}{\eta^2+\nu^2} \, d\nu}\\
+&=-\sum\limits_{i=1}^N \text{Neum} \integ{\nu_{i-\frac{1}{2}}}{\nu_{i+\frac{1}{2}}}{-\frac{1}{2\pi} \frac{H n_x-n_y \nu}{\eta^2+\nu^2} \, d\nu}\\
+&=-\sum\limits_{i=1}^N -\frac{\text{Neum}}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{\frac{H n_x-n_y r \sin\theta}{\left( H\sec\theta\right)^2 }H \sec^2\theta \, d\theta}\\
+&=-\sum\limits_{i=1}^N -\frac{\text{Neum}}{2\pi} \integ{\theta_{i-\frac{1}{2}}}{\theta_{i+\frac{1}{2}}}{n_x-n_y\tan\theta\, d\theta}\\
+&=-\sum\limits_{i=1}^N -\frac{\text{Neum}}{2\pi} \left( n_x(\theta_{i+\frac{1}{2}}- \theta_{i-\frac{1}{2}}) -n_y \left[\ln(\vert \cos\theta\vert )\right]_{\theta_{i-\frac{1}{2}}}^{\theta_{i+\frac{1}{2}}} \right)\label{intPartialG}
 \end{align}
 
 \item We have to compute $\integ{\Gamma_0}{}{\partial_{x'}\nabla G_{x',y'} \cdot n \text{diri}}$
