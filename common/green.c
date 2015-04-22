@@ -64,11 +64,16 @@ void GreenBoundDx(double xx, double yy, double xm, double ym,double xp,double yp
   double  H = cos(ThetaM)*sqrt(pow(xm-xx,2)+pow(ym-yy,2));
 
 //  printf("%f \t %f \n",copysign(1.0,(sig*(nx*amy-ny*amx))),copysign(1.0,(sig*(nx*apy-ny*apx))));
-
+if(sig==1){
   *pm=-(1/(2*M_PI*H))*(-nx*0.5*((sin(2*ThetaP)-sin(2*ThetaM)))+ny*(sin(ThetaP)*sin(ThetaP)-sin(ThetaM)*sin(ThetaM))) ; /*new*/
-//  *pm=-(1/(2*M_PI*H))*(nx*(2*(ThetaP-ThetaM)+0.5*(sin(2*ThetaP)-sin(2*ThetaM)))-ny*(sin(ThetaP)*sin(ThetaP)-sin(ThetaM)*sin(ThetaM))) ; 
-  *pp=-(1/(2*M_PI))*(nx*(ThetaP-ThetaM)-ny*(log(fabs(cos(ThetaP)))-log(fabs(cos(ThetaM)))));
- // printf("%e \t %e\n",cos(ThetaP),cos(ThetaM));
+  *pp=-(1/(2*M_PI))*(nx*(ThetaP-ThetaM)+ny*(log(fabs(cos(ThetaP)))-log(fabs(cos(ThetaM)))));
+}
+else
+{
+  *pm=-(1/(2*M_PI*H))*(nx*((2*(ThetaP-ThetaM))+0.5*((sin(2*ThetaP)-sin(2*ThetaM))))-ny*(sin(ThetaP)*sin(ThetaP)-sin(ThetaM)*sin(ThetaM))) ; 
+  *pp=-(1/(2*M_PI))*(-nx*(ThetaP-ThetaM)-ny*(log(fabs(cos(ThetaP)))-log(fabs(cos(ThetaM)))));
+ }
+// printf("%e \t %e\n",cos(ThetaP),cos(ThetaM));
 }
 
 void GreenBoundDy(double xx, double yy, double xm, double ym,double xp,double yp, double nx, double ny, double* pm, double* pp){
@@ -97,8 +102,16 @@ void GreenBoundDy(double xx, double yy, double xm, double ym,double xp,double yp
   double  H = cos(ThetaM)*sqrt(pow(xm-xx,2)+pow(ym-yy,2));
 
 //  printf("%f \t %f \n",copysign(1.0,(sig*(nx*amy-ny*amx))),copysign(1.0,(sig*(nx*apy-ny*apx))));
+if(sig==1){
+  *pm=-(1/(2*M_PI*H))*(-ny*0.5*((sin(2*ThetaP)-sin(2*ThetaM)))-nx*(sin(ThetaP)*sin(ThetaP)-sin(ThetaM)*sin(ThetaM))) ;
+  *pp=-(1/(2*M_PI))*(ny*(ThetaP-ThetaM)-nx*(log(fabs(cos(ThetaP)))-log(fabs(cos(ThetaM)))));
+}
+else
+{
 
-  *pm=-(1/(2*M_PI*H))*(-ny*0.5*((sin(2*ThetaP)-sin(2*ThetaM)))+nx*(sin(ThetaP)*sin(ThetaP)-sin(ThetaM)*sin(ThetaM))) ;
-  *pp=-(1/(2*M_PI))*(ny*(ThetaP-ThetaM)+nx*(log(fabs(cos(ThetaP)))-log(fabs(cos(ThetaM)))));
+  *pm=-(1/(2*M_PI*H))*(-ny*0.5*((sin(2*ThetaP)-sin(2*ThetaM)))-nx*(sin(ThetaP)*sin(ThetaP)-sin(ThetaM)*sin(ThetaM))) ;
+  *pp=-(1/(2*M_PI))*(-ny*(ThetaP-ThetaM)+nx*(log(fabs(cos(ThetaP)))-log(fabs(cos(ThetaM)))));
+ }
+
  // printf("%e \t %e\n",cos(ThetaP),cos(ThetaM));
 }

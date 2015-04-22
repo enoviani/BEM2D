@@ -378,13 +378,13 @@ int main(){
 
 	// tests in the bulk
 
-	int M[5]={50,100,200,400,800};
+	int M[6]={50,100,200,400,800,1600};
 
-	for(i=0;i<5;i++)
+	for(i=0;i<6;i++)
 		printf("test_peanutBulk:\t n=%i\terr(relative)=%e\n",M[i],test_peanutBulk(M[i]));
-	for(i=0;i<5;i++)
+	for(i=0;i<6;i++)
 		printf("test_peanutBulkDx:\t n=%i\terr(relative)=%e\n",M[i],test_peanutBulkDx(M[i]));
-	for(i=0;i<5;i++)
+	for(i=0;i<6;i++)
                 printf("test_peanutBulkDy:\t n=%i\terr(relative)=%e\n",M[i],test_peanutBulkDy(M[i]));
 	petscEnd();
 	return 0;
