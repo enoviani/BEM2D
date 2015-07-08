@@ -38,8 +38,8 @@ void createPeanut(int N, double** X, double** Y, double** xn, double** yn, doubl
 
 	for(i=0;i<N;i++){
 		t = 2*M_PI*i*dt;
-		(*X)[i]=(1+0.5*cos(2*t))*cos(t);
-		(*Y)[i]=(1+0.5*cos(2*t))*sin(t);
+		(*X)[i]=(1-0.5*cos(2*t))*cos(t);
+		(*Y)[i]=(1-0.5*cos(2*t))*sin(t);
 	}
 	computeNormals(*X, *Y,N,nx,ny,H);
 	computeMidPoints(*X, *Y, N,xn,yn);
