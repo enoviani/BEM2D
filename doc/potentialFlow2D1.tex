@@ -323,7 +323,7 @@ On the obstacle, for $i$ from 1 to $N$ we can write~\eqref{BIboundary1} as
  \underbrace{\dfrac{1}{2\pi}\psi(x_i,y_i)}_\text{1} + 
    \underbrace{\fpint{\partial\Omega}{}{\psi \nabla G_{x_i,y_i}\cdot n}}_\text{2}=\underbrace{-\fpint{\partial\Omega}{}{G_{x_i,y_i}u_0n_x}}_\text{3} \label{BIboundary2}
 \end{align}
-Let we see each item:
+Let us see each item:
 \begin{enumerate}
  \item $ \dfrac{1}{2\pi}\psi(x_i,y_i) = \dfrac{1}{2\pi}\psi_i$  
 
@@ -727,28 +727,30 @@ With using equation \ref{partialxaNablaGn}, and normal vector in the same direct
 =&-\frac{1}{2\pi} \left(\frac{n_x}{H} \integ{\theta^+}{\theta^-}{\, d\theta}-
  \frac{n_x}{H} \integ{\theta^+}{\theta^-}{2\cos^2\theta \, d\theta}+
  \frac{n_y}{H} \integ{\theta^+}{\theta^-}{2\cos \theta \sin\theta, d\theta} \right)\\
-=& \frac{1}{2\pi} \left[-\frac{n_x}{H}\frac{1}{2}\sin2\theta+\frac{n_y}{H}\sin^2\theta \right]_{\theta^-}^{\theta^+}\label{intPartialxaNablaGn}
+=& \frac{1}{2\pi} \left[-\frac{n_x}{2H}\sin2\theta+\frac{n_y}{H}\sin^2\theta \right]_{\theta^-}^{\theta^+}\label{intPartialxaNablaGn}
 \end{align}
 When normal vector has direction $-\eta$, we obtain:
 \begin{align}
- \integ{\Gamma_0}{}{\partial_{x'}\nabla G_{x',y'} \cdot n}&=\integ{\nu^-}{\nu^+}{\frac{1}{2\pi} \frac{(\eta^2+\nu^2)(-n_x)-2(-n_x\eta+n_y\nu)(-\eta)}{(\eta^2+\nu^2)^2} \, d\nu}\\
- =& \integ{\theta^-}{\theta^+}{-\frac{1}{2\pi} \frac{(H^2 \sec^2\theta)n_x-2(-n_x H+n_y H \sec \theta \sin \theta)(H)}{H^4 \sec^4\theta} \, H \sec^2\theta d\theta}\\
-=&\integ{\theta^-}{\theta^+}{-\frac{1}{2\pi} \left( \frac{n_x}{H}+\frac{2n_x}{H \sec^2\theta}-\frac{2n_y \sin \theta \cos\theta}{H} \right) \, d\theta}\\
-=&-\frac{1}{2\pi} \left(\frac{n_x}{H} \integ{\theta^-}{\theta^+}{\, d\theta}+
+ \integ{\Gamma_0}{}{\partial_{x'}\nabla G_{x',y'} \cdot n}&= \integ{\nu^-}{\nu^+}{\frac{1}{2\pi} \frac{(\eta^2+\nu^2)(-n_x)+2(-n_x\eta+n_y\nu)(-\eta)}{(\eta^2+\nu^2)^2} \, d\nu}\\
+ =& \integ{\theta^-}{\theta^+}{\frac{1}{2\pi} \frac{(H^2 \sec^2\theta)(-n_x)+2(-n_x H+n_y H \sec \theta \sin \theta)(-H)}{H^4 \sec^4\theta} \, H \sec^2\theta d\theta}\\
+=&\integ{\theta^-}{\theta^+}{\frac{1}{2\pi} \left( \frac{-n_x}{H}+\frac{2n_x}{H \sec^2\theta}-\frac{2n_y \sin \theta \cos\theta}{H} \right) \, d\theta}\\
+=&\frac{1}{2\pi} \left(\frac{-n_x}{H} \integ{\theta^-}{\theta^+}{\, d\theta}+
  \frac{n_x}{H} \integ{\theta^-}{\theta^+}{2\cos^2\theta \, d\theta}-
  \frac{n_y}{H} \integ{\theta^-}{\theta^+}{2\cos \theta \sin\theta, d\theta} \right)\\
-=& -\frac{1}{2\pi} \left[\frac{n_x}{H}(2 \theta+\frac{1}{2}\sin2\theta)-\frac{n_y}{H}\sin^2\theta \right]_{\theta^-}^{\theta^+}\\
-=& \frac{1}{2\pi} \left[-\frac{n_x}{H}\frac{1}{2}\sin2\theta+\frac{n_y}{H}\sin^2\theta-\frac{n_x}{H} 2 \theta \right]_{\theta^-}^{\theta^+}\label{intPartialxaNablaGn1}
+=& \frac{1}{2\pi} \frac{n_x}{H} \integ{\theta^-}{\theta^+}{\cos 2\theta}-\frac{n_y}{H}\integ{\theta^-}{\theta^+}{2\cos \theta \sin\theta, d\theta}\\
+=& \frac{1}{2\pi} \left[\frac{n_x}{2H}\sin2\theta-\frac{n_y}{H}\sin^2\theta-\frac{n_x}{H} 2 \theta \right]_{\theta^-}^{\theta^+}\label{intPartialxaNablaGn1}
 \end{align}
 From the calculation above, we obtain:
-if direction $n=\eta$:
 \begin{align}
- \integ{\Gamma_0}{}{\partial_{x'}\nabla G_{x',y'} \cdot n \text{diri}}=\sum\limits_{i=1}^N \text{diri}_i\frac{1}{2\pi} \left[-\frac{n_x}{H}\frac{1}{2}\sin2\theta+\frac{n_y}{H}\sin^2\theta \right]_{\theta^-}^{\theta^+}
+ \integ{\Gamma_0}{}{\partial_{x'}\nabla G_{x',y'} \cdot n \text{diri}}=\sum\limits_{i=1}^N \text{diri}_i\frac{s}{2\pi} \left[-\frac{n_x}{2H}\sin2\theta+\frac{n_y}{H}\sin^2\theta \right]_{\theta^-}^{\theta^+}
 \end{align}
-if direction $n=-\eta$:
-\begin{align}
- \integ{\Gamma_0}{}{\partial_{x'}\nabla G_{x',y'} \cdot n \text{diri}}=\sum\limits_{i=1}^N \text{diri}_i\frac{1}{2\pi} \left[-\frac{n_x}{H}\frac{1}{2}\sin2\theta+\frac{n_y}{H}\sin^2\theta-\frac{n_x}{H} 2 \theta \right]_{\theta^-}^{\theta^+}
-\end{align}
+with
+ \[
+ s=\left\{ \begin{array}{ll}
+    -1, & \text{ if direction } n \text{ is equal to }-\eta\\
+    1, & \text{ if direction } n \text{ is equal to } \eta
+   \end{array}\right.
+\]
 
 \item We will calculate $-\integ{\Gamma_0}{}{\text{Neum} \left(\partial_{y'}G_{x',y'}(x,y)\right)}$
 
