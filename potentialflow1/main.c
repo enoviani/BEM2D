@@ -211,8 +211,8 @@ int main(){
 			YYV[k+j]=(mesh1)+dhy*j;
 		}
 	}
-//	printf("vector XXV :\n");
-//	displayArray(XXV,(Hx*Hy));
+	printf("vector XXV :\n");
+	displayArray(XXV,(Hx*Hy));
 
 //	printf("vector YYV :\n");
 //	displayArray(YYV,(Hx*Hy));

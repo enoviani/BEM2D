@@ -1,6 +1,6 @@
 default: common 
 
-common: interface greenstuff geom
+common: interface greenstuff geom disp
 	ar -cvq common.a *.o
 
 include ${PETSC_DIR}/conf/variables
@@ -9,6 +9,7 @@ include ${PETSC_DIR}/conf/rules
 interface: petscInterface.o  chkopts
 greenstuff: green.o  chkopts
 geom: geometry.o chkopts
+disp: display.o chkopts
 
 test: clean
 	make -s common
