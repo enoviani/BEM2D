@@ -224,8 +224,8 @@ From these remarks, we can sum up the equation~\eqref{int1}
 when $(x',y')\in\mathbb{R}^2\setminus\overline{\Omega_0}$, not in boundary as
 \begin{align}
  -u_0 \integ{\Gamma_0}{}{n_x G_{x',y'}(x,y) \, ds}-
-\integ{\Gamma_0}{}{\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds}+\psi_{x',y'}=0\\
-\psi_{x',y'}(x,y)=-\integ{\Gamma_0}{}{-u_0 n_x G_{x',y'}(x,y) -\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds} \label{BIform}
+\integ{\Gamma_0}{}{\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds}+\psi(x',y')=0\\
+\psi(x',y')=-\integ{\Gamma_0}{}{-u_0 n_x G_{x',y'}(x,y) -\psi\nabla G_{x',y'}(x,y)\cdot \vec{n} \, ds} \label{BIform}
 \end{align}
 We call equation~\eqref{BIform} as Boundary Integral Formulation in $(x',y')\in \mathbb{R}^2\setminus\overline{\Omega_0}$. From boundary integral formulation we can see that the potential in 
 every point in domain is depend on its potential and gradient of potential on the boundary.
@@ -610,11 +610,11 @@ with
 
 We want to solve the boundary integral formulation when the source is in the domain $(x',y')\in \Omega$ as in equation~\eqref{BIform}. 
 \begin{equation}
- \psi_{x',y'}(x,y)=-\integ{\Gamma_0}{}{(-u_0 n_x)G_{x',y'}(x,y)} + \integ{\Gamma_0}{}{\psi\nabla G_{x',y'}(x,y)\cdot \vec{n}} \label{BIform1}
+ \psi(x',y')=-\integ{\Gamma_0}{}{(-u_0 n_x)G_{x',y'}(x,y)} + \integ{\Gamma_0}{}{\psi\nabla G_{x',y'}(x,y)\cdot \vec{n}} \label{BIform1}
 \end{equation}
 If we call $-u_0 n_x$ and $\psi$ respectively with Neum and Diri, we can write \ref{BIform1} as
 \begin{equation}
- \psi_{x',y'}(x,y)=-\integ{\Gamma_0}{}{\text{Neum}G_{x',y'}(x,y)} + \integ{\Gamma_0}{}{\text{Diri}\nabla G_{x',y'}(x,y)\cdot \vec{n}}
+ \psi(x',y')=-\integ{\Gamma_0}{}{\text{Neum}G_{x',y'}(x,y)} + \integ{\Gamma_0}{}{\text{Diri}\nabla G_{x',y'}(x,y)\cdot \vec{n}}
 \end{equation}
 
 For solving Boundary Integral Formulation inside the domain, in order to get the potential flow, we wish to obtain $u=\nabla\psi$ as in equation \eqref{Pr0}.
