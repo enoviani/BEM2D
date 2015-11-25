@@ -47,6 +47,28 @@ void createPeanut(int N, double** X, double** Y, double** xn, double** yn, doubl
 }
 
 
+void createCircle(int N, double** X, double** Y, double** xn, double** yn, double** nx, double** ny,double** H)
+{
+	// We first define the points of the boundary
+
+	int i;
+	double t;
+
+	*X=malloc(N*sizeof(double));
+	*Y=malloc(N*sizeof(double));
+	double dt=1.0/N;
+
+	for(i=0;i<N;i++){
+		t = 2*M_PI*i*dt;
+		(*X)[i]=cos(t);
+		(*Y)[i]=sin(t)-2;
+	}
+	computeNormals(*X, *Y,N,nx,ny,H);
+	computeMidPoints(*X, *Y, N,xn,yn);
+
+}
+
+
 // The peanut testcase for Dirichlet to Neumann (see the doc)
 //
 double test_peanutDN(int N)
@@ -364,8 +386,114 @@ double test_peanutBulkDy(int N)
 	err=sqrt(err);
 	return err;
 }
-// Running all the test and print the info
 
+
+double test_KelvinNeumannBoundary(int N)
+{
+	double *X,*Y,*xn,*yn,*nx,*ny,*H;
+        createCircle(N,&X,&Y,&xn,&yn,&nx,&ny,&H);
+
+       	double *pH;
+	double* mDH;
+	double* mY;
+	double* Iden;
+	double* neum;
+	double* rhs1;
+	double* rhs2;
+	double* rhs3;
+	double *psi,*rhs,*lhs;
+	
+	double* Mreg;
+	double* Preg;
+		
+	pH=malloc(N*N*sizeof(double));
+	mDH=malloc(N*N*sizeof(double));
+	Mreg=malloc(N*N*sizeof(double));
+	Preg=malloc(N*N*sizeof(double));
+
+
+	mY=malloc(N*sizeof(double));	
+	Iden=malloc(N*N*sizeof(double));
+	neum=malloc(N*sizeof(double));
+	rhs=malloc(N*sizeof(double));
+	lhs=malloc(N*N*sizeof(double));
+	rhs1=malloc(N*sizeof(double));
+	rhs2=malloc(N*sizeof(double));
+	rhs3=malloc(N*sizeof(double));
+	psi=malloc(N*sizeof(double));
+	int i,j,k,jp;
+	double u0=1.0;
+	double k0=9.81/(u0*u0);
+	double* M;
+	double* P;
+	
+
+	buidInfluenceMatrices(N,X,Y,xn,yn,nx,ny,H,&M,&P); // compute integ NablaG.n dan G(x',y')
+
+
+	for(i=0;i<N;i++){
+		for(j=0;j<N;j++){
+			k=j+i*N;
+			jp=mod(j+1,N);
+			GreenRegularH(xn[i], yn[i], X[j], Y[j],X[jp],Y[jp],nx[j],ny[j],k0,mDH+k,pH+k);//calculate integ NablaH(x',y') and integH(x',y')
+	//		printf("Matrix for H : (%i,%i) : %f , %f \n",i,j,mDH[k],pH[k]);
+			GreenBound(xn[i],-yn[i],X[j],Y[j],X[jp],Y[jp],nx[j],ny[j],Mreg+k,Preg+k);
+	//		printf("Matrix for the symmetric part : (%i,%i) : %f , %f \n",i,j,Mreg[k],Preg[k]);
+			}
+	}
+
+	//We want to solve the equation: [1/2*I-(M+(mDH-Mreg))]Psi=-u0*P*Nx+(-u0*pH*Nx-(-u0*Preg*Nx))
+	for(i=0;i<N;i++){
+		neum[i]=-u0*nx[i];
+	}
+
+	
+	printf("Hello -----");
+	petscMatVecMult(P,N,N,neum,rhs1);
+
+	printf("Hello -----");
+	petscMatVecMult(pH,N,N,neum,rhs2);
+
+	printf("Hello -----");
+	petscMatVecMult(Preg,N,N,neum,rhs3);
+//	printf("X[i]\t Y[i]\n");
+	printf("Hello -----");
+	for(i=0;i<N;i++){
+		rhs[i]=rhs1[i]+rhs2[i]-rhs3[i];
+		//printf("rhs %f\n",rhs[i]);
+//		printf("%f\t%f\n",X[i], Y[i]);
+	}
+
+	//printf("**********************");
+//identity matrix 0.5*Id
+//	printf("i \t lhs[i] \t \n");
+	for(i=0;i<N;i++){
+		for(j=0;j<N;j++){
+			k=j+i*N;
+			if(i != j){
+				Iden[k]= 0.0;
+			}
+			else{
+				Iden[k]= 0.5;
+			}
+			lhs[k]=Iden[k]-(M[k]+(mDH[k]-Mreg[k]));
+			
+//			printf("lhs %i\t %f\n",k,lhs[k]);
+		}
+	}
+
+	petscSolve(lhs, N, rhs, psi);
+
+///	printf("-----------------------------------------\n");
+//	printf("i \t psi \n");
+	for(i=0;i<N;i++){
+		printf("%i\t %f\n", i, psi[i]);
+	}
+	return 1;
+}
+
+
+// Running all the test and print the info
 int main(){
 	int i;
 	petscInit();
@@ -386,6 +514,9 @@ int main(){
 		printf("test_peanutBulkDx:\t n=%i\terr(relative)=%e\n",M[i],test_peanutBulkDx(M[i]));
 	for(i=0;i<6;i++)
                 printf("test_peanutBulkDy:\t n=%i\terr(relative)=%e\n",M[i],test_peanutBulkDy(M[i]));
+
+	test_KelvinNeumannBoundary(10);
+
 	petscEnd();
 	return 0;
 }

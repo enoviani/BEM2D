@@ -19,7 +19,7 @@ test: clean
 	./greentests
 	@-${CLINKER} -o expinttests test_expE1.c common.a ${PETSC_CC_INCLUDES} ${PETSC_KSP_LIB}
 	./expinttests
-	@rm petsctests greentests
+	@rm petsctests greentests expinttests
 
 clean ::
 	@rm -f *.a
